@@ -17,6 +17,8 @@
 
 package com.gp.projecteuler.problems;
 
+import java.util.List;
+
 import com.gp.projecteuler.CommonMath;
 
 public class Problem010 {
@@ -26,13 +28,18 @@ public class Problem010 {
 	 * Find the sum of all the primes below two million.
 	 */
 	public static void main(String[] args) {
+		
+		long start = System.currentTimeMillis();
+		
+		List<Long> primes = CommonMath.findPrimesUnder(2000000);
 		long sum = 0;
-		for(long i = 2; i < 2000000; i++){
-			if(CommonMath.isPrime(i)){
-				sum += i;
-			}
+		
+		for(long prime : primes){
+			sum += prime;
 		}
-		System.out.println(sum);
+		
+		System.out.println("Answer: " + sum);
+		System.out.println("Duration: " + (System.currentTimeMillis() - start) + " ms");
 	}
 
 }

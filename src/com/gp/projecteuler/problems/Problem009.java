@@ -28,6 +28,7 @@ public class Problem009 {
 	 */
 	public static void main(String[] args) {
 		
+		outer:
 		for(int a = 1; a < 1000; a++){
 			for(int b = 1; b < 1000; b++){
 				int c = (int)Math.sqrt(a * a + b * b);
@@ -37,6 +38,8 @@ public class Problem009 {
 				
 				if((a + b + c) == 1000){
 					System.out.println("a: " + a + ", b: " + b + ", c: " + c + ", product: " + (a * b * c));
+					System.out.println("Answer: " + (a * b * c));
+					break outer;
 				}
 			}
 		}

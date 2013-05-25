@@ -74,7 +74,7 @@ public class CommonMath {
 		Collections.sort(factorList);
 		return factorList;
 	}
-	
+			
 	/**
 	 * For any long n, returns a List of all proper divisors (no duplicates and excluding n).
 	 * 
@@ -382,6 +382,17 @@ public class CommonMath {
 	 */
 	public static boolean isPalindrome(String str){
 		return str.equals(reverse(str));
+	}
+	
+	/**
+	 * Determines if a long number is a palindrome.
+	 * @param num
+	 * @return
+	 */
+	public static boolean isPalindrome(long num){
+		String forward = Long.toString(num);
+		String reverse = reverse(forward);
+		return forward.equals(reverse);
 	}
 	
 	/**

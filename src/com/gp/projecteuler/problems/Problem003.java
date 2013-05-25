@@ -35,15 +35,15 @@ public class Problem003 {
 		
 		List<Long> factorList = CommonMath.findFactors(num);
 		Collections.sort(factorList);
-		System.out.println(factorList);
+		System.out.println("Factors of " + num + ": " + factorList);
 		for(long factor : factorList){
 			if(CommonMath.isPrime(factor)){
-				System.out.println("is Prime: " + factor);
+				System.out.println("This factor is Prime: " + factor);
 				largestPrime = factor;
 			}
 		}
 		
-		System.out.println(largestPrime);
+		System.out.println("Answer: " + largestPrime);
 	}
 	
 	

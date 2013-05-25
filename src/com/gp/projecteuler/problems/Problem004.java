@@ -17,6 +17,8 @@
 
 package com.gp.projecteuler.problems;
 
+import com.gp.projecteuler.CommonMath;
+
 public class Problem004 {
 
 	/**
@@ -28,7 +30,7 @@ public class Problem004 {
 		int largest = 0;
 		for(int i = 100; i < 1000; i++){
 			for(int j = 100; j < 1000; j++){
-				if(isPalindrome(i * j)){
+				if(CommonMath.isPalindrome(i * j)){
 					if(largest < (i * j)){
 						largest = i * j;
 					}
@@ -36,24 +38,6 @@ public class Problem004 {
 			}
 		}
 		
-		System.out.println(largest);
-
+		System.out.println("Answer: " + largest);
 	}
-	
-	public static boolean isPalindrome(long num){
-		String forward = Long.toString(num);
-		String reverse = reverse(forward);
-		return forward.equals(reverse);
-	}
-	
-	public static String reverse(String forward){
-		char[] chars = forward.toCharArray();
-		char[] reverseChars = new char[chars.length];
-		
-		for(int i = 0; i < forward.length(); i++){
-			reverseChars[forward.length() - 1 - i] = chars[i];
-		}
-		return new String(reverseChars);
-	}
-
 }

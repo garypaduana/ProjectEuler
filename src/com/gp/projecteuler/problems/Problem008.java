@@ -83,7 +83,7 @@ public class Problem008 {
 			}
 		}
 		
-		System.out.println(maxProduct);
+		System.out.println("Answer: " + maxProduct);
 	}
 
 }

@@ -50,6 +50,6 @@ public class Problem002 {
 				break;
 			}
 		}
-		System.out.println(sum);
+		System.out.println("Answer: " + sum);
 	}
 }

@@ -32,11 +32,14 @@ public class Problem006 {
 	public static void main(String[] args) {
 		
 		int num = 100;
-		// n(n+1)(2n+1) / 6
+		
+		// The sum of the squares of the first n natural numbers is n(n+1)(2n+1)/6
 		long sumOfSquares = num * (num + 1) * (2 * num + 1) / 6;
+		
+		// The sum of the first n natural numbers is n(n+1)/2
 		long squareOfSum = (long)Math.pow(num * (num + 1) / 2, 2);
 		
-		System.out.println(squareOfSum - sumOfSquares);
+		System.out.println("Answer: " + (squareOfSum - sumOfSquares));
 	}
 
 }

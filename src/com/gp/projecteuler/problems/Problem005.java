@@ -26,17 +26,22 @@ public class Problem005 {
 	 * from 1 to 20?
 	 */
 	public static void main(String[] args) {
-		long i = 2;
-		while(true){
+		long i = 20;
+		boolean foundSmallest = false;
+		
+		while(!foundSmallest){
+			
 			for(int num = 1; num <= 20; num++){
 				if(i % num != 0){
 					break;
 				}
 				if(num == 20){
-					System.out.println(i);
+					System.out.println("Answer: " + i);
+					foundSmallest = true;
+					break;
 				}
 			}
-			i++;
+			i += 20;
 		}
 	}
 

@@ -25,9 +25,6 @@ package com.gp.projecteuler.problems;
  */
 public class Problem001 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		long sum = 0;
 
@@ -44,7 +41,7 @@ public class Problem001 {
 			}
 		}
 
-		System.out.println(sum);
+		System.out.println("Answer: " + sum);
 	}
 
 }

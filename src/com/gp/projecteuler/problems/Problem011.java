@@ -45,7 +45,8 @@ public class Problem011 {
 		20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16
 		20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54
 		01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48
-		The product of these numbers is 26  63  78  14 = 1788696.
+		
+		The product of these numbers is 26 * 63 * 78 * 14 = 1788696.
 		
 		What is the greatest product of four adjacent numbers in any direction (up, down, left, right, or diagonally) in the 2020 grid?
 	 */
@@ -72,25 +73,29 @@ public class Problem011 {
 						"20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54 " +
 						"01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48";
 		
-		int x1 = 0;
-		int y2 = 0;
+		int xIndex = 0;
+		int yIndex = 0;
 		
+		// Create a new data structure and fill it with empty values.
+		// Format is List<Row>, where a row is a List<Column>
+		// Row index is "y" value, column index is "x" value in (x,y) coordinates
 		List<List<Integer>> data = new ArrayList<List<Integer>>();
 		for(int i = 0; i < 20; i++){
 			data.add(new ArrayList<Integer>());
 		}
 		
+		// Split the string on whitespace and fill the data structure.
 		for(String s : grid.split(" ")){
-			data.get(y2).add(Integer.valueOf(s));
-			x1++;
-			if(x1 % 20 == 0){
-				y2++;
+			data.get(yIndex).add(Integer.valueOf(s));
+			xIndex++;
+			if(xIndex % 20 == 0){
+				yIndex++;
 			}
 		}
 		
 		int largestProduct = 0;
 		
-		// vertical
+		// vertical search
 		for(int x = 0; x < 20; x++){
 			for(int y = 0; y < 17; y++){
 				int product = data.get(y).get(x) * data.get(y+1).get(x) * data.get(y+2).get(x) * data.get(y+3).get(x);
@@ -100,7 +105,7 @@ public class Problem011 {
 			}
 		}
 			
-		// horizontal
+		// horizontal search
 		for(int y = 0; y < 20; y++){
 			for(int x = 0; x < 17; x++){
 				int product = data.get(y).get(x) * data.get(y).get(x+1) * data.get(y).get(x+2) * data.get(y).get(x+3);
@@ -110,7 +115,7 @@ public class Problem011 {
 			}
 		}
 		
-		// diagonal right
+		// diagonal right search
 		for(int x = 0; x < 17; x++){
 			for(int y = 0; y < 17; y++){
 				int product = data.get(y).get(x) * data.get(y+1).get(x+1) * data.get(y+2).get(x+2) * data.get(y+3).get(x+3);
@@ -120,18 +125,18 @@ public class Problem011 {
 			}
 		}
 		
-		// diagonal left
-		for(int x = 19; x >= 3; x--){
-			for(int y = 0; y < 17; y++){
-				int product = data.get(y).get(x) * data.get(y+1).get(x-1) * data.get(y+2).get(x-2) * data.get(y+3).get(x-3);
+		// diagonal left search
+		// 
+		for(int x = 0; x < 17; x++){
+			for(int y = 19; y >= 3; y--){
+				int product = data.get(y).get(x) * data.get(y-1).get(x+1) * data.get(y-2).get(x+2) * data.get(y-3).get(x+3);
 				if(product > largestProduct){
 					largestProduct = product;
 				}
 			}
 		}
 		
-		
-		System.out.println(largestProduct);
+		System.out.println("Answer: " + largestProduct);
 	}
 
 }
