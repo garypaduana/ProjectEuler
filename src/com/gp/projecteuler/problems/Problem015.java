@@ -17,43 +17,17 @@
 
 package com.gp.projecteuler.problems;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.gp.projecteuler.CommonMath;
 
+/**
+ * Starting in the top left corner of a 2x2 grid, there are 6 routes 
+ * (without backtracking) to the bottom right corner.
+ * How many routes are there through a 20x20 grid?
+ */
 public class Problem015 {
 
-	/**
-	 * Starting in the top left corner of a 2x2 grid, there are 6 routes (without backtracking) to the bottom right corner.
-	 * How many routes are there through a 20x20 grid?
-	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
-		
-		List<Long> aList = new ArrayList<Long>();
-		List<Long> bList = new ArrayList<Long>();
-		
-		aList.add(1L);
-		
-		for(long i = 0; i < 40; i++){
-			
-			bList.clear();
-			bList.add(1L);
-			
-			for(int j = 0; j < aList.size() - 1; j++){
-				bList.add(aList.get(j) + aList.get(j+1));
-			}
-			
-			bList.add(1L);
-			System.out.println(bList);
-			
-			aList.clear();
-			aList.addAll(bList);
-			
-		}
-		
-		System.out.println("Size: " + bList.size() + ", item at index " + bList.size() / 2 + ": " + bList.get(bList.size()/2));
-		
-		
+		System.out.println("Answer: " + CommonMath.findRowInPascalsTriangle(40).get(20));
 	}
-
 }

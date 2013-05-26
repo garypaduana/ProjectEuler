@@ -34,6 +34,8 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import sun.awt.SunHints.Value;
+
 public class CommonMath {
 
 	private Map<Long, Set<Long>> eulerTotientCache = new TreeMap<Long, Set<Long>>();
@@ -1211,5 +1213,118 @@ public class CommonMath {
 		else{
 			return pentagonal(-(i));
 		}
+	}
+	
+	/**
+	 * Returns the triangle number that exists at a specified position.
+	 * Triangle numbers: 1, 3, 6, 10, 15, 21, 28, 36, 45, 55, ...
+	 * @param num
+	 * @return
+	 */
+	public static long findTriangleNumberAtPosition(long num){
+		long sum = 0;
+		for(long i = 1; i < num; i++){
+			sum += i;
+		}
+		return sum;
+	}
+	
+	/**
+	 * The following iterative sequence is defined for the set of positive integers:
+	 * n -> n/2 (n is even)
+	 * n -> 3n + 1 (n is odd)
+	 * 
+	 * Based on input, n, returns the next number in the sequence.
+	 * @param n
+	 * @return
+	 */
+	public static long findNextInCollatzSequence(long n){
+		if(n %2 == 0){
+			return n / 2;
+		}
+		else{
+			return 3 * n + 1;
+		}
+	}
+	
+	/**
+	 * Returns row n of Pascal's Triangle.  Functional up until the point a value
+	 * exceeds a 64bit long value.
+	 * 
+	 * The general solution is:
+	 * 
+	 * (n, k) = (n, k-1) * ((n + 1 - k) / k)
+	 * 
+	 * where n is the row and k is the column
+	 * 
+	 * Using combinations, it can be found as:
+	 * 
+	 * (n, k) = (n!) / (k! * (n - k)!)
+	 *  
+	 * @param n
+	 * @return
+	 * @throws Exception 
+	 */
+	public static List<Long> find64BitRowInPascalsTriangle(int n) throws Exception{
+		// This very quickly overflows:
+		// factorial(n) / (factorial(k) * factorial(n-k));
+		
+		List<Long> values = new ArrayList<Long>();
+		
+		for(int i = 0; i <= n; i++){
+			if(i == 0){
+				values.add(1L);
+			}
+			else{
+				long val = values.get(i-1) * (n + 1 - i) / i;
+				
+				if(val < 1){
+					throw new Exception("64-bit long overflow encountered!");
+				}
+				else{
+					values.add(val);
+				}
+			}
+		}
+		
+		return values;
+	}
+	
+	/**
+	 * Returns row n of Pascal's Triangle.  Uses BigInteger to allow arbitrarily
+	 * large calculations limited by memory available.
+	 * 
+	 * The general solution is:
+	 * 
+	 * (n, k) = (n, k-1) * ((n + 1 - k) / k)
+	 * 
+	 * where n is the row and k is the column
+	 * 
+	 * Using combinations, it can be found as:
+	 * 
+	 * (n, k) = (n!) / (k! * (n - k)!)
+	 *  
+	 * @param n
+	 * @return
+	 * @throws Exception 
+	 */
+	public static List<BigInteger> findRowInPascalsTriangle(int n) throws Exception{
+		// This very quickly overflows:
+		// factorial(n) / (factorial(k) * factorial(n-k));
+		
+		List<BigInteger> values = new ArrayList<BigInteger>();
+		
+		for(int i = 0; i <= n; i++){
+			if(i == 0){
+				values.add(BigInteger.ONE);
+			}
+			else{
+				BigInteger numerator = BigInteger.valueOf(n).add(BigInteger.ONE).subtract(BigInteger.valueOf(i));
+				BigInteger val = values.get(i-1).multiply(numerator).divide(BigInteger.valueOf(i));
+				values.add(val);
+			}
+		}
+		
+		return values;
 	}
 }
