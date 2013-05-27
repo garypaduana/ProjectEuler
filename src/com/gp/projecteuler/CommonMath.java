@@ -1327,4 +1327,28 @@ public class CommonMath {
 		
 		return values;
 	}
+	
+	/**
+	 * Returns the number of consecutive primes produced by the quadratic
+	 * equation: n² + an + b
+	 * 
+	 * @param a
+	 * @param b
+	 * @param cm
+	 * @return
+	 */
+	public static int evaluateEulerQuadraticFormula(int a, int b){
+		
+		int n = 0;
+		while(true){
+			
+			int product = (n * n) + (a * n) + b;
+			if(isPrime(product)){
+				n++;
+			}
+			else{
+				return n;
+			}
+		}
+	}
 }
