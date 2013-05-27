@@ -20,39 +20,56 @@ package com.gp.projecteuler.problems;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+	Starting with the number 1 and moving to the right in a clockwise
+	direction a 5 by 5 spiral is formed as follows:
+	
+	(21)  22   23   24  (25)
+	 20   (7)   8   (9)  10
+	 19    6   (1)   2   11
+	 18   (5)   4   (3)  12
+	(17)  16   15   14  (13)
+	
+	It can be verified that the sum of the numbers on the diagonals is 101.
+	
+	What is the sum of the numbers on the diagonals in a 1001 by 1001 spiral
+	formed in the same way?
+ */
 public class Problem028 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
-		int distanceUntilNext = 1;
-		int currentDistance = 1;
+		int referenceDistanceUntilNext = 1;
+		int currentDistanceUntilNext = 1;
 		int countAtCurrentDistance = 0;
 		
 		List<Integer> diagonalList = new ArrayList<Integer>();
 		diagonalList.add(1);
 		
+		// Create a state machine and traverse the spiral
 		for(int i = 2; i <= (1001 * 1001); i++){
-			if(currentDistance > 0){
-				currentDistance--;
+			if(currentDistanceUntilNext > 0){
+				currentDistanceUntilNext--;
 			}
 			else{
 				diagonalList.add(i);
 				countAtCurrentDistance++;
 				
+				// 4 means all 4 corners have been encountered
+				// and a revolution around the spiral occurred
 				if(countAtCurrentDistance == 4){
 					countAtCurrentDistance = 0;
-					distanceUntilNext += 2;
+					// The distance between diagonal numbers grows
+					// by 2 each revolution around the spiral
+					referenceDistanceUntilNext += 2;
 				}
-				currentDistance = distanceUntilNext;
+				currentDistanceUntilNext = referenceDistanceUntilNext;
 			}
 		}
 		int sum = 0;
 		for(int i : diagonalList){
 			sum += i;
 		}
-		System.out.println(sum);
+		System.out.println("Answer: " + sum);
 	}	
 }
