@@ -56,7 +56,4 @@ public class Problem023 {
 		
 		System.out.println("Answer: " + sum);
 	}
-	
-	
-
 }
