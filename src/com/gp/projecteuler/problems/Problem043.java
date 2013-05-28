@@ -68,7 +68,8 @@ public class Problem043 {
 			}
 			
 			for(List<Integer> list : subGroups.keySet()){
-				if(!(subNum(Long.valueOf(s), list) % subGroups.get(list) == 0)){
+				if(!(CommonMath.buildNumberFromLargerNumber(
+						Long.valueOf(s), list) % subGroups.get(list) == 0)){
 					continue outer;
 				}
 			}
@@ -78,21 +79,4 @@ public class Problem043 {
 		
 		System.out.println("Answer: " + sum);
 	}
-	
-	public static int subNum(long num, List<Integer> positions){
-		String numStr = Long.toString(num);
-		
-		StringBuilder sb = new StringBuilder();
-		
-		for(int i : positions){
-			try{
-				sb.append(String.valueOf(numStr.charAt(i - 1)));
-			}
-			catch(Exception e){
-				System.out.println(num + ", " + positions);
-			}
-		}
-		return Integer.valueOf(sb.toString());
-	}
-
 }

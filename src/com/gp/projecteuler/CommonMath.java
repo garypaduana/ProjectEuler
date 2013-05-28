@@ -1349,4 +1349,34 @@ public class CommonMath {
 			}
 		}
 	}
+	
+	/**
+	 * Returns a number derived by concatenating positions within a larger
+	 * number.  
+	 * 
+	 * Example:
+	 * number: 34293482348
+	 * positions:[1,5,8]
+	 * returns: 332
+	 * 
+	 * @param num - the number used to create a new number
+	 * @param positions - the positions within num that should be extracted
+	 * 	to form a new number.  1-based indexing.
+	 * @return
+	 */
+	public static int buildNumberFromLargerNumber(long num, List<Integer> positions){
+		String numStr = Long.toString(num);
+		
+		StringBuilder sb = new StringBuilder();
+		
+		for(int i : positions){
+			try{
+				sb.append(String.valueOf(numStr.charAt(i - 1)));
+			}
+			catch(Exception e){
+				System.out.println(num + ", " + positions);
+			}
+		}
+		return Integer.valueOf(sb.toString());
+	}
 }
