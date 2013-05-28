@@ -43,7 +43,6 @@ import com.gp.projecteuler.CommonMath;
  */
 public class Problem043 {
 
-	// TODO: This is very inefficient, find a new approach.
 	public static void main(String[] args) {
 		
 		Map<List<Integer>, Integer> subGroups = new HashMap<List<Integer>, Integer>();
