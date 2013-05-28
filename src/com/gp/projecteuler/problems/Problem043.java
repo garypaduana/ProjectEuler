@@ -24,11 +24,26 @@ import java.util.Map;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	The number, 1406357289, is a 0 to 9 pandigital number because it is made 
+	up of each of the digits 0 to 9 in some order, but it also has a rather 
+	interesting sub-string divisibility property.
+	
+	Let d(1) be the 1st digit, d(2) be the 2nd digit, and so on. 
+	In this way, we note the following:
+	
+	d(2)d(3)d(4) = 406 is divisible by 2
+	d(3)d(4)d(5) = 063 is divisible by 3
+	d(4)d(5)d(6) = 635 is divisible by 5
+	d(5)d(6)d(7) = 357 is divisible by 7
+	d(6)d(7)d(8) = 572 is divisible by 11
+	d(7)d(8)d(9) = 728 is divisible by 13
+	d(8)d(9)d(10) = 289 is divisible by 17
+	Find the sum of all 0 to 9 pandigital numbers with this property.
+ */
 public class Problem043 {
 
-	/**
-	 * @param args
-	 */
+	// TODO: This is very inefficient, find a new approach.
 	public static void main(String[] args) {
 		
 		Map<List<Integer>, Integer> subGroups = new HashMap<List<Integer>, Integer>();
@@ -43,6 +58,7 @@ public class Problem043 {
 		
 		long sum = 0;
 		long start = System.currentTimeMillis();
+		
 		outer:
 		for(long i = 1234567890; i <= 9876543210L; i++){
 			
@@ -51,13 +67,6 @@ public class Problem043 {
 				start = System.currentTimeMillis();
 			}
 			
-			if(i == 1406357289){
-				System.out.println("1406357289 isPandigital? " + CommonMath.isPandigital(Arrays.asList(new Long[]{i}), 0, 9));
-			}
-			
-//			if((i % 10000000 / 1000000 % 2 != 0)){
-//				continue outer;
-//			}
 			if(!(i % 100000 / 10000 == 0 || i % 100000 / 10000 == 5)){
 				continue outer;
 			}
@@ -76,7 +85,7 @@ public class Problem043 {
 			sum += i;
 		}
 		
-		System.out.println(sum);
+		System.out.println("Answer: " + sum);
 	}
 	
 	public static int subNum(long num, List<Integer> positions){
