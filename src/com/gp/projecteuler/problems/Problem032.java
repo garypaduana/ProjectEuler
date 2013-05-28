@@ -25,11 +25,22 @@ import java.util.TreeSet;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	We shall say that an n-digit number is pandigital if it makes use of all
+	the digits 1 to n exactly once; for example, the 5-digit number, 15234,
+	is 1 through 5 pandigital.
+	
+	The product 7254 is unusual, as the identity, 39 * 186 = 7254, containing
+	multiplicand, multiplier, and product is 1 through 9 pandigital.
+	
+	Find the sum of all products whose multiplicand/multiplier/product 
+	identity can be written as a 1 through 9 pandigital.
+	
+	HINT: Some products can be obtained in more than one way so be sure to 
+	only include it once in your sum.
+ */
 public class Problem032 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
 		Set<Long> pandigitalProductSet = new TreeSet<Long>();
@@ -39,16 +50,15 @@ public class Problem032 {
 			
 			for(long divisor : divisors){
 				
-				if(CommonMath.isPandigital(Arrays.asList(new Long[]{i, i / divisor, divisor}), 1, 9)){
+				if(CommonMath.isPandigital(Arrays.asList(
+					new Long[]{i, i / divisor, divisor}), 1, 9)){
 					pandigitalProductSet.add(i);
 					
 				}
 			}
 		}
 		
-		for(long l : pandigitalProductSet){
-			System.out.println(l);
-		}
-		System.out.println(CommonMath.sumListOfNumber(new ArrayList<Long>(pandigitalProductSet)));
+		System.out.println("Answer: " + CommonMath.sumListOfNumber(
+			new ArrayList<Long>(pandigitalProductSet)));
 	}
 }

@@ -22,16 +22,34 @@ import java.util.List;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	Surprisingly there are only three numbers that can be written as the sum
+	of fourth powers of their digits:
+	
+	1634 = 1^4 + 6^4 + 3^4 + 4^4
+	8208 = 8^4 + 2^4 + 0^4 + 8^4
+	9474 = 9^4 + 4^4 + 7^4 + 4^4
+	As 1 = 1^4 is not a sum it is not included.
+	
+	The sum of these numbers is 1634 + 8208 + 9474 = 19316.
+	
+	Find the sum of all the numbers that can be written as the sum of fifth
+	powers of their digits.
+ */
 public class Problem030 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
 		List<Integer> special = new ArrayList<Integer>();
 		
-		for(int i = 0; i < 10000000; i++){
+		/* Determine what the max range should be.
+		 * For a 5 digit number, 5 * 9 ^ 5 = 295245, which is valid
+		 * For a 6 digit number, 6 * 9 ^ 5 = 354294, which is valid
+		 * For a 7 digit number, 7 * 9 ^ 5 = 413343, which is not valid
+		 * 		since the 7 digit number will surely be greater than the sum
+		 * 		of the digits to the 5th power.
+		 */
+		for(int i = 0; i < 354294; i++){
 			String str = Integer.toString(i);
 			char[] digits = str.toCharArray();
 			long sum = 0;
@@ -44,6 +62,6 @@ public class Problem030 {
 			}
 		}
 		
-		System.out.println(CommonMath.sumListOfNumber(special));
+		System.out.println("Answer: " + CommonMath.sumListOfNumber(special));
 	}
 }

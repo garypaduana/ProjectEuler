@@ -422,9 +422,10 @@ public class CommonMath {
 	}
 	
 	/**
-	 * Determines if the concatenation of a List of numbers produces a pandigital number that
-	 * contains exactly once each of the numbers from low to high, inclusive.
-	 * e.g. 123456789 is pandigital from 1 to 9.  1223 is not pandigital from 1 to 3.
+	 * Determines if the concatenation of a List of numbers produces a
+	 * pandigital number that contains exactly once each of the numbers from
+	 * low to high, inclusive. e.g. 123456789 is pandigital from 1 to 9.  
+	 * 1223 is not pandigital from 1 to 3.
 	 * The List may have just one element.
 	 * @param numbers
 	 * @param low
