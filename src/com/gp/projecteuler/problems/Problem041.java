@@ -17,7 +17,10 @@
 
 package com.gp.projecteuler.problems;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import com.gp.projecteuler.CommonMath;
 
@@ -31,18 +34,22 @@ import com.gp.projecteuler.CommonMath;
 public class Problem041 {
 
 	public static void main(String[] args) {
+			
+		List<String> perms = CommonMath.permutation("1234567");
+		List<Integer> nums = new ArrayList<Integer>();
 		
-		int largest = 1;
-		for(int i = 0; i < 7654321; i++){
-			if(CommonMath.isPrime(i)){
-				for(int high = 1; high <= Integer.toString(i).length(); high++){
-					if(CommonMath.isPandigital(Arrays.asList(new Integer[]{i}), 1, high)){
-						largest = i;
-					}
-				}
+		for(String s : perms){
+			nums.add(Integer.valueOf(s));
+		}
+		
+		Collections.sort(nums);
+		for(int i = nums.size() - 1; i >= 0; i--){
+			if(CommonMath.isPrime(nums.get(i))){
+				System.out.println("Answer: " + nums.get(i));
+				break;
 			}
 		}
-		System.out.println("Answer: " + largest);
+		
 	}
 
 }
