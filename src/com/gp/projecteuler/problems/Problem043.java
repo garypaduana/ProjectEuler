@@ -57,32 +57,23 @@ public class Problem043 {
 		subGroups.put(Arrays.asList(new Integer[] {8, 9, 10}), 17);
 		
 		long sum = 0;
-		long start = System.currentTimeMillis();
 		
+		List<String> perms = CommonMath.permutation("0123456789");
+
 		outer:
-		for(long i = 1234567890; i <= 9876543210L; i++){
+		for(String s : perms){
 			
-			if(i % 100000000 == 0){
-				System.out.println(i + ": " + (System.currentTimeMillis() - start));
-				start = System.currentTimeMillis();
-			}
-			
-			if(!(i % 100000 / 10000 == 0 || i % 100000 / 10000 == 5)){
-				continue outer;
+			if(s.substring(0, 1).equals("0")){
+				continue;
 			}
 			
 			for(List<Integer> list : subGroups.keySet()){
-				if(!(subNum(i, list) % subGroups.get(list) == 0)){
+				if(!(subNum(Long.valueOf(s), list) % subGroups.get(list) == 0)){
 					continue outer;
 				}
 			}
 			
-			if(!CommonMath.isPandigital(Arrays.asList(new Long[]{i}), 0, 9)){
-				continue outer;
-			}
-			
-			System.out.println(i);
-			sum += i;
+			sum += Long.valueOf(s);
 		}
 		
 		System.out.println("Answer: " + sum);
@@ -94,7 +85,12 @@ public class Problem043 {
 		StringBuilder sb = new StringBuilder();
 		
 		for(int i : positions){
-			sb.append(String.valueOf(numStr.charAt(i - 1)));
+			try{
+				sb.append(String.valueOf(numStr.charAt(i - 1)));
+			}
+			catch(Exception e){
+				System.out.println(num + ", " + positions);
+			}
 		}
 		return Integer.valueOf(sb.toString());
 	}
