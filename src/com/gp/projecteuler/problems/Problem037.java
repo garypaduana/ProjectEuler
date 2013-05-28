@@ -19,11 +19,19 @@ package com.gp.projecteuler.problems;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	The number 3797 has an interesting property. Being prime itself, it is
+	possible to continuously remove digits from left to right, and remain
+	prime at each stage: 3797, 797, 97, and 7. Similarly we can work from
+	right to left: 3797, 379, 37, and 3.
+	
+	Find the sum of the only eleven primes that are both truncatable from
+	left to right and right to left.
+	
+	NOTE: 2, 3, 5, and 7 are not considered to be truncatable primes.
+ */
 public class Problem037 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
 		int sum = 0;
@@ -52,11 +60,11 @@ public class Problem037 {
 				}
 			}
 			
-			System.out.println(i);
+			System.out.println("Truncatable: " + i);
 			sum += i;
 		}
 		
-		System.out.println("Sum: " + sum);
+		System.out.println("Answer: " + sum);
 	}
 
 }

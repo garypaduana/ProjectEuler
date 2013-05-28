@@ -21,25 +21,28 @@ import java.util.Arrays;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	We shall say that an n-digit number is pandigital if it makes use of
+	all the digits 1 to n exactly once. For example, 2143 is a 4-digit
+	pandigital and is also prime.
+	
+	What is the largest n-digit pandigital prime that exists?
+ */
 public class Problem041 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
 		int largest = 1;
-		for(int i = 0; i < 999999999; i++){
+		for(int i = 0; i < 7654321; i++){
 			if(CommonMath.isPrime(i)){
 				for(int high = 1; high <= Integer.toString(i).length(); high++){
 					if(CommonMath.isPandigital(Arrays.asList(new Integer[]{i}), 1, high)){
-						System.out.println(i);
 						largest = i;
 					}
 				}
 			}
 		}
-		System.out.println(largest);
+		System.out.println("Answer: " + largest);
 	}
 
 }

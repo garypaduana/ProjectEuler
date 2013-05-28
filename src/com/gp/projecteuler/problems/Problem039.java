@@ -17,12 +17,16 @@
 
 package com.gp.projecteuler.problems;
 
-
+/**
+	If p is the perimeter of a right angle triangle with integral length
+	sides, {a,b,c}, there are exactly three solutions for p = 120.
+	
+	{20,48,52}, {24,45,51}, {30,40,50}
+	
+	For which value of p <= 1000, is the number of solutions maximized?
+ */
 public class Problem039 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
 		int maxP = 0;
@@ -32,9 +36,9 @@ public class Problem039 {
 			int count = 0;
 			for(int a = 1; a < (p/2); a++){
 				for(int b = (p - a); b > 0; b--){
-					
 					if((a * a + b * b) == ((p - a - b) * (p - a - b))){
-						System.out.println("p: " + p + ", a;b;c : " + a + ";" + b + ";" + (p - a - b));
+						System.out.println("p: " + p + ", a;b;c : " + a +
+							";" + b + ";" + (p - a - b));
 						count++;
 					}
 				}
@@ -46,7 +50,7 @@ public class Problem039 {
 			}
 		}
 		
-		System.out.println(maxP);
+		System.out.println("Answer: " + maxP);
 	}
 
 }

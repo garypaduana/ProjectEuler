@@ -22,27 +22,34 @@ import java.util.List;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	The number, 197, is called a circular prime because all rotations of
+	the digits: 197, 971, and 719, are themselves prime.
+	
+	There are thirteen such primes below 100: 
+	2, 3, 5, 7, 11, 13, 17, 31, 37, 71, 73, 79, and 97.
+	
+	How many circular primes are there below one million?
+ */
 public class Problem035 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
 		List<Integer> circularPrimes = new ArrayList<Integer>();
 		
 		outer:
 		for(int i = 0; i < 1000000; i++){
-			if(!CommonMath.isPrime(i))continue outer;
-			List<String> perms = CommonMath.rotations(Integer.toString(i));
+			if(!CommonMath.isPrime(i)) 
+				continue outer;
+			List<String> rotations = CommonMath.rotations(Integer.toString(i));
 			
-			for(String perm : perms){
+			for(String perm : rotations){
 				if(!CommonMath.isPrime(Integer.valueOf(perm))){
 					continue outer;
 				}
 			}
 			circularPrimes.add(i);
 		}
-		System.out.println(circularPrimes.size());
+		System.out.println("Answer: " + circularPrimes.size());
 	}
 }

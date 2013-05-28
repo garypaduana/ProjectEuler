@@ -19,13 +19,20 @@ package com.gp.projecteuler.problems;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	145 is a curious number, as 1! + 4! + 5! = 1 + 24 + 120 = 145.
+	
+	Find the sum of all numbers which are equal to the sum of the factorial
+	of their digits.
+	
+	Note: as 1! = 1 and 2! = 2 are not sums they are not included.
+ */
 public class Problem034 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 
+		long totalSum = 0;
+		// TODO: Find a more appropriate upper limit to this loop
 		outer:
 		for(int i = 0; i < 100000; i++){
 			++i;
@@ -37,9 +44,12 @@ public class Problem034 {
 					continue outer;
 				}
 			}
-			if(sum == i){
-				System.out.println("FOUND: " + i);
+			if(sum == i && sum != 1 && sum != 2){
+				System.out.println("Matches condition: " + i);
+				totalSum += i;
 			}
 		}
+		
+		System.out.println("Answer: " + totalSum);
 	}
 }

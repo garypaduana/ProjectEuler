@@ -19,20 +19,28 @@ package com.gp.projecteuler.problems;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	The decimal number, 585 = 1001001001(base2) (binary), is palindromic
+	in both bases.
+	
+	Find the sum of all numbers, less than one million, which are
+	palindromic in base 10 and base 2.
+	
+	(Please note that the palindromic number, in either base, may not
+	include leading zeros.)
+ */
 public class Problem036 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
 		int sum = 0;
 		for(int i = 0; i < 1000000; i++){
-			if(CommonMath.isPalindrome(Integer.toBinaryString(i)) && CommonMath.isPalindrome(Integer.toString(i))){
+			if(CommonMath.isPalindrome(Integer.toBinaryString(i)) && 
+					CommonMath.isPalindrome(Integer.toString(i))){
 				sum += i;
 			}
 		}
-		System.out.println(sum);
+		System.out.println("Answer: " + sum);
 	}
 
 }

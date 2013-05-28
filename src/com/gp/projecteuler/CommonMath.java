@@ -424,7 +424,8 @@ public class CommonMath {
 	/**
 	 * Determines if the concatenation of a List of numbers produces a
 	 * pandigital number that contains exactly once each of the numbers from
-	 * low to high, inclusive. e.g. 123456789 is pandigital from 1 to 9.  
+	 * low to high, inclusive. e.g. 123456789 is pandigital from 1 to 9.
+	 *  
 	 * 1223 is not pandigital from 1 to 3.
 	 * The List may have just one element.
 	 * @param numbers
@@ -433,12 +434,8 @@ public class CommonMath {
 	 * @return
 	 */
 	public static boolean isPandigital(List<? extends Number> numbers, int low, int high){
-		StringBuilder sb = new StringBuilder();
-		for(Number i : numbers){
-			sb.append(i.toString());
-		}
 		
-		String cat = sb.toString();
+		String cat = concat(numbers);
 		
 		if(high < low){
 			throw new IllegalArgumentException("high must be higher than low!");
