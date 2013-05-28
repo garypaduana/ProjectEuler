@@ -18,28 +18,54 @@
 package com.gp.projecteuler.problems;
 
 import com.gp.projecteuler.CommonMath;
+import com.gp.projecteuler.Fraction;
 
+/**
+	The fraction 49/98 is a curious fraction, as an inexperienced 
+	mathematician in attempting to simplify it may incorrectly believe that
+	49/98 = 4/8, which is correct, is obtained by cancelling the 9s.
+
+	We shall consider fractions like, 30/50 = 3/5, to be trivial examples.
+
+	There are exactly four non-trivial examples of this type of fraction,
+	less than one in value, and containing two digits in the numerator and
+	denominator.
+
+	If the product of these four fractions is given in its lowest common terms,
+	find the value of the denominator.
+ */
 public class Problem033 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
+		CommonMath cm = new CommonMath();
+		long numeratorProduct = 1;
+		long denominatorProduct = 1;
 		
 		for(int num = 10; num <= 98; num++){
 			for(int denom = num + 1; denom <= 99; denom++){
 				int ans = CommonMath.containsCommonNumber(num, denom);
 				if(ans >= 1){
-					int numR = Integer.valueOf(Integer.toString(num).replaceAll(Integer.toString(ans), ""));
-					int denomR = Integer.valueOf(Integer.toString(denom).replaceAll(Integer.toString(ans), ""));
+					int numR = Integer.valueOf(Integer.toString(num)
+							.replaceAll(Integer.toString(ans), ""));
+					int denomR = Integer.valueOf(Integer.toString(denom)
+							.replaceAll(Integer.toString(ans), ""));
 					
 					if(denomR != 0){
 						if(((double)num / (double)denom) == ((double)numR / (double)denomR)){
-							System.out.println(ans + "   " + num + "/" + denom + "    " + numR + "/" + denomR);
+							System.out.println(ans + "   " + num + "/" +
+									denom + "    " + numR + "/" + denomR);
+							
+							numeratorProduct *= num;
+							denominatorProduct *= denom;
 						}
 					}					
 				}
 			}
 		}
+		
+		Fraction f = new Fraction(numeratorProduct, denominatorProduct);
+		Fraction reduced = cm.reducedProperFraction(f);
+		
+		System.out.println("Answer: " + reduced.getDenominator());
 	}
 }
