@@ -17,40 +17,58 @@
 
 package com.gp.projecteuler.problems;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	The first two consecutive numbers to have two distinct prime factors are:
+	
+	14 = 2 * 7
+	15 = 3 * 5
+	
+	The first three consecutive numbers to have three distinct prime factors are:
+	
+	644 = 2² * 7 * 23
+	645 = 3 * 5 * 43
+	646 = 2 * 17 * 19.
+	
+	Find the first four consecutive integers to have four distinct prime 
+	factors. What is the first of these numbers?
+ */
 public class Problem047 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
+		long start = System.currentTimeMillis();
+		
 		Set<Long> primes = new TreeSet<Long>();
-		for(Long i = 0L; i < 200000; i++){
+		List<Long> primeList = new ArrayList<Long>();
+		
+		long i = 0;
+		int count = 0;
+		while(true){
+			
 			if(CommonMath.isPrime(i)){
 				primes.add(i);
+				primeList.add(i);
 			}
-		}
-		
-		int count = 0;
-		int inARow = 4;
-		for(long i = 0L; i < 200000; i++){
 			
-			if(CommonMath.findDistinctPrimeFactors(i, primes).size() == inARow){
+			if(CommonMath.findDistinctPrimeFactors(i, primes, primeList).size() == 4){
 				count++;
 			}
 			else{
 				count = 0;
 			}
 			
-			if(count == inARow){
-				System.out.println(i - 3);
+			if(count == 4){
+				System.out.println("Answer: " + (i - 3));
 				break;
 			}
+			i++;
 		}
-		
+		System.out.println("Duration: " + (System.currentTimeMillis() - start));
 	}
 }

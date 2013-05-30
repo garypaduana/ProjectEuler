@@ -471,28 +471,27 @@ public class CommonMath {
 	 * Finds all distinct prime factors for a given number.
 	 * @param num
 	 * @param primes
+	 * @param primeList
 	 * @return
 	 */
-	public static Set<Long> findDistinctPrimeFactors(long num, Set<Long> primes){
+	public static Set<Long> findDistinctPrimeFactors(long num, Set<Long> primes,
+			List<Long> primeList){
 		Set<Long> factors = new TreeSet<Long>();
 		if(primes.contains(num)){
 			factors.add(num);
 			return factors;
 		}
 		
-		long i = 2;
-		while(i <= num){
-			if(!primes.contains(i)){
-				i++;
-				continue;
-			}
+		for(int i = 0; i < primeList.size(); i++){
 			
-			if(num % i == 0){
-				factors.add(i);
-				num = num / i;
-				i = 2;
+			if(primeList.get(i) > num){
+				break;
 			}
-			i++;
+			if(num % primeList.get(i) == 0){
+				factors.add(primeList.get(i));
+				num = num / primeList.get(i);
+				i = 0;
+			}
 		}
 		return factors;
 	}
