@@ -19,20 +19,34 @@ package com.gp.projecteuler.problems;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	It was proposed by Christian Goldbach that every odd composite number can
+	be written as the sum of a prime and twice a square.
+	
+	9 = 7 + 2*1^2
+	15 = 7 + 2*2^2
+	21 = 3 + 2*3^2
+	25 = 7 + 2*3^2
+	27 = 19 + 2*2^2
+	33 = 31 + 2*1^2
+	
+	It turns out that the conjecture was false.
+	
+	What is the smallest odd composite that cannot be written as the sum of
+	a prime and twice a square?
+ */
 public class Problem046 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
 		outer:
 		for(long i = 2; i < 10000; i++){
+			
+			// Skip if not an odd composite
 			if(CommonMath.isPrime(i) || i % 2 == 0){
 				continue outer;
 			}
-			// Now working only with odd composites
-
+			
 			inner:
 			for(long prime = 0; prime < i; prime++){
 				if(!CommonMath.isPrime(prime)){
@@ -40,17 +54,12 @@ public class Problem046 {
 				}
 				for(long square = 0; square <= (long)Math.sqrt(i); square++){
 					if(i == (prime + square * square * 2)){
-//						System.out.println(i + " = " + prime + " + 2 * " + square + "^2");
 						continue outer;
 					}
 				}
 			}
-			System.out.println("Smallest odd composite that cannot" +
-					" be written as the sum of a prime and twice a square:" +
-					i);
+			System.out.println("Answer: " + i);
 			break outer;
-			
 		}
 	}
-
 }
