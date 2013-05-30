@@ -19,23 +19,29 @@ package com.gp.projecteuler.problems;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	It can be seen that the number, 125874, and its double, 251748, contain
+	exactly the same digits, but in a different order.
+	
+	Find the smallest positive integer, x, such that 2x, 3x, 4x, 5x, and 6x,
+	contain the same digits.
+ */
 public class Problem052 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
-		
+		int i = 0;
 		outer:
-		for(int i = 1; i < 1000000; i++){
-			
+		while(true){
+			i++;
 			for(int factor = 1; factor <= 6; factor++){
-				if(!CommonMath.isInSamePermutationSet(Integer.toString(i), String.valueOf(factor * i))){
+				if(!CommonMath.isInSamePermutationSet(
+						Integer.toString(i), String.valueOf(factor * i))){
 					continue outer;
 				}
 			}
 			
-			System.out.println(i);
+			System.out.println("Answer: " + i);
+			break;
 		}
 	}
 }

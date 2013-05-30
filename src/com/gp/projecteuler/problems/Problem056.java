@@ -21,11 +21,16 @@ import java.math.BigInteger;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	A googol (10^100) is a massive number: one followed by one-hundred zeros;
+	100^100 is almost unimaginably large: one followed by two-hundred zeros.
+	Despite their size, the sum of the digits in each number is only 1.
+	
+	Considering natural numbers of the form, ab, where a, b  100, what is
+	the maximum digital sum?
+ */
 public class Problem056 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		long start = System.currentTimeMillis();
 		long maxDigitalSum = 0;
@@ -42,10 +47,7 @@ public class Problem056 {
 			}
 		}
 		
-		System.out.println(maxDigitalSum);
-		System.out.println(System.currentTimeMillis() - start);
+		System.out.println("Answer: " + maxDigitalSum);
+		System.out.println("Duration: " + (System.currentTimeMillis() - start));
 	}
-	
-	
-
 }

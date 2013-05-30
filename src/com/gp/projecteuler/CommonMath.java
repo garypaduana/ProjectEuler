@@ -699,11 +699,6 @@ public class CommonMath {
 		return a.multiply(d).add(b.multiply(c)).toString() + " / " + (d.multiply(b)).toString(); 
 	}
 
-	/**
-	 * 
-	 * @param depth
-	 * @return
-	 */
 	public static String generateSquareRootOfTwoRepeatingFractionExpression(int depth){
 		String base = "1 + 1/2";
 		String replace = "(2 + 1/2)";
@@ -745,7 +740,6 @@ public class CommonMath {
 			}
 			
 			replace = "(" + last + " + 1/" + re + ")";
-			//System.out.println(sb.toString());
 			
 			sb.replace(sb.lastIndexOf(last), sb.lastIndexOf(last) + last.length(), replace);
 			last = re;
