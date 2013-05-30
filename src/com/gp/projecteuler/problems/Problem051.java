@@ -17,51 +17,73 @@
 
 package com.gp.projecteuler.problems;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	By replacing the 1st digit of the 2-digit number *3, it turns out that
+	six of the nine possible values: 13, 23, 43, 53, 73, and 83, are all prime.
+	
+	By replacing the 3rd and 4th digits of 56**3 with the same digit, this
+	5-digit number is the first example having seven primes among the ten 
+	generated numbers, yielding the family: 56003, 56113, 56333, 56443, 
+	56663, 56773, and 56993. Consequently 56003, being the first member 
+	of this family, is the smallest prime with this property.
+	
+	Find the smallest prime which, by replacing part of the number 
+	(not necessarily adjacent digits) with the same digit, is part of 
+	an eight prime value family.
+ */
 public class Problem051 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
+		long start = System.currentTimeMillis();
+		
 		Set<Long> primes = new TreeSet<Long>();
 		for(long i = 1; i < 1000000; i++){
 			if(CommonMath.isPrime(i)){
 				primes.add(i);
 			}
 		}
-		long start = System.currentTimeMillis();
+		
 		outer:
 		for(int starCount = 1; starCount <= 5; starCount++){
-			System.out.println(starCount);
+			List<Long> validPrimes = new ArrayList<Long>();
+			
 			for(int i = 0; i < 1000; i++){
 				String numStr = Integer.toString(i) + getSymbol("*", starCount);
 				List<String> perms = CommonMath.permutation(numStr);
 				
 				for(String perm : perms){
-					int primeCount = 0;
+					validPrimes.clear();
 					for(int p = 0; p <= 9; p++){
-						if((perm.indexOf("*") == 0 && p == 0) || perm.indexOf("0") == 0 ){
+						
+						// Skip over numbers that start with leading 0
+						if((perm.indexOf("*") == 0 && p == 0) ||
+								perm.indexOf("0") == 0 ){
 							continue;
 						}
-						int candidate = Integer.valueOf(perm.replaceAll("\\*", Integer.toString(p)));
+						
+						int candidate = Integer.valueOf(
+								perm.replaceAll("\\*", Integer.toString(p)));
 						if(primes.contains((long)candidate)){
-							primeCount++;
+							validPrimes.add((long)candidate);
 						}
-						if(primeCount == 8){
-							System.out.println(perm);
+						if(validPrimes.size() == 8){
+							Collections.sort(validPrimes);
+							System.out.println("Answer: " + validPrimes.get(0));
 							break outer;
 						}
 					}
 				}			
 			}
 		}
-		System.out.println((System.currentTimeMillis() - start) + "ms");
+		System.out.println("Duration: " + (System.currentTimeMillis() - start));
 	}
 	
 	public static String getSymbol(String symbol, int count){

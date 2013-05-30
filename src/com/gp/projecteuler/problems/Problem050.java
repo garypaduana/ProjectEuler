@@ -24,12 +24,24 @@ import java.util.TreeSet;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	The prime 41, can be written as the sum of six consecutive primes:
+	
+	41 = 2 + 3 + 5 + 7 + 11 + 13
+	This is the longest sum of consecutive primes that adds to a prime
+	below one-hundred.
+	
+	The longest sum of consecutive primes below one-thousand that adds to
+	a prime, contains 21 terms, and is equal to 953.
+	
+	Which prime, below one-million, can be written as the sum of the most
+	consecutive primes?
+ */
 public class Problem050 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
+		
+		long start = System.currentTimeMillis();
 		
 		List<Long> primesList = new ArrayList<Long>();
 		Set<Long> primes = new TreeSet<Long>();
@@ -40,7 +52,7 @@ public class Problem050 {
 				primesList.add(i);
 			}
 		}
-		long start = System.currentTimeMillis();
+		
 		long sum = 0;
 		int maxCount = 0;
 		
@@ -66,8 +78,9 @@ public class Problem050 {
 			}
 		}
 		
-		System.out.println(System.currentTimeMillis() - start);
-		System.out.println("count: " + maxCount + ", maxSum: " + maxSum);
+		
+		System.out.println("count: " + maxCount + ", Answer: " + maxSum);
+		System.out.println("Duration: " + (System.currentTimeMillis() - start));
 	}
 
 }
