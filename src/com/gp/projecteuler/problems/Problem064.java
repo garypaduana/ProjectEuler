@@ -25,19 +25,21 @@ import java.util.TreeSet;
 import com.gp.projecteuler.CommonMath;
 import com.gp.projecteuler.FileUtil;
 
+/**
+	This problem has a very long description, please see
+	https://projecteuler.net/problem=64
+ */
 public class Problem064 {
 
-	/**
-	 * @param args
-	 * @throws IOException 
-	 */
 	public static void main(String[] args) throws IOException {
 		
+		long start = System.currentTimeMillis();
 		Set<Integer> squares = new TreeSet<Integer>();
 		for(int i = 0; i < 100; i++){
 			squares.add(i*i);
 		}
 		
+		StringBuilder sb = new StringBuilder();
 		int oddPeriod = 0;
 		for(int i = 2; i <= 10000; i++){
 			if(squares.contains(i)) continue;
@@ -47,15 +49,22 @@ public class Problem064 {
 				System.out.println(i + " contains 0!!");
 			}
 			double percent = ((double)oddPeriod / (double)i);
-				FileUtil.writeTextToFile("./resources/Problem064.txt",
-						String.valueOf(i + ", " + fracs.toString() + ",                    " + oddPeriod + ", " + percent +
-							", estimate: " + (10000 * percent) + "\r\n"), true);
+				sb.append(String.valueOf(i + ", " + fracs.toString() + 
+						",                    " + oddPeriod + ", " + percent +
+						", estimate: " + (10000 * percent) + "\r\n"));
+				
+				if(i % 100 == 0){
+					FileUtil.writeTextToFile("./resources/Problem064.txt", 
+						sb.toString(), true);
+					sb.delete(0, sb.length());
+				}
 			if((fracs.size() + 1) % 2 != 0){
 				oddPeriod++;
 			}
 		}
 		
-		System.out.println(oddPeriod);
+		System.out.println("Answer: " + oddPeriod);
+		System.out.println("Duration: " + (System.currentTimeMillis() - start));
 	}
 
 }

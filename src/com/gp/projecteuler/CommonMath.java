@@ -34,8 +34,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import sun.awt.SunHints.Value;
-
 public class CommonMath {
 
 	private Map<Long, Set<Long>> eulerTotientCache = new TreeMap<Long, Set<Long>>();
@@ -322,7 +320,8 @@ public class CommonMath {
 		}
 		else{
 			for(int i = 0; i < str.length(); i++){
-				permList.addAll(permutation(prefix + str.charAt(i), str.substring(0, i) + str.substring(i+1, str.length())));
+				permList.addAll(permutation(prefix + str.charAt(i), 
+					str.substring(0, i) + str.substring(i+1, str.length())));
 			}  
 		}
 		return permList;
@@ -821,11 +820,14 @@ public class CommonMath {
 		boolean patternFound = false;
 		while(!patternFound){
 			
-			sqrt = new BigDecimal("1").divide(sqrt.subtract(new BigDecimal(Integer.toString(an))), new MathContext(1000));
+			sqrt = new BigDecimal("1").divide(sqrt.subtract(
+				new BigDecimal(Integer.toString(an))), new MathContext(1000));
 			an = sqrt.intValue();
 			
-			BigDecimal close = sqrt.subtract(numSqrt).subtract(sqrt.subtract(numSqrt).setScale(0, RoundingMode.FLOOR));
-			if(close.compareTo(new BigDecimal("0.0000001")) <= 0 || close.compareTo(new BigDecimal("0.9999999")) >= 0){
+			BigDecimal close = sqrt.subtract(numSqrt).subtract(
+				sqrt.subtract(numSqrt).setScale(0, RoundingMode.FLOOR));
+			if(close.compareTo(new BigDecimal("0.0000001")) <= 0 || 
+					close.compareTo(new BigDecimal("0.9999999")) >= 0){
 
 				pattern.add(pattern.get(0) * 2);
 				patternFound = true;
@@ -1371,5 +1373,63 @@ public class CommonMath {
 			}
 		}
 		return Integer.valueOf(sb.toString());
+	}
+	
+	/**
+	 * Taking a triangle of this form:
+	 * 
+	 * 	75
+	 *	95 64
+	 *	17 47 82
+	 *	18 35 87 10
+	 *	20 04 82 47 65
+	 *	19 01 23 75 03 34
+	 *
+	 *	... and so on, to an arbitrary length, find the weight of the greatest
+	 *	path through from top to bottom, touching every row and not moving
+	 *	laterally more than one position with each move.  In the example above,
+	 *	from 75, either 95 or 64 can be chosen next.  If 64 is chosen, then
+	 *	only 47 or 82 could be chosen in the following move, and so on until
+	 *	the last row has been reached.
+	 *
+	 *	This solution is done by looking at the end of the triangle first and
+	 * 	then working backwards.  Each part in the tree has two children (except
+	 *	for the last row).  The maximum weight of the parent can be determined
+	 * 	by choosing the larger of the two children.  On the next iteration that
+	 *	parent becomes a child and then competes with its siblings for the
+	 * 	largest weight for its parent.  When the top of the triangle is reached
+	 * 	the maximum weight path is obtained.
+	 *
+	 * @param triangle
+	 * @return
+	 */
+	public static long maximumDistanceThroughTriangle(List<String> triangle){
+		List<List<Integer>> values = new ArrayList<List<Integer>>();
+		for(String s : triangle){
+			List<Integer> row = new ArrayList<Integer>();
+			String[] pieces = s.split(" ");
+			
+			for(String num : pieces){
+				row.add(Integer.valueOf(num));
+			}
+			values.add(row);			
+		}
+		
+		for(int i = triangle.size() - 1; i > 0; i--){
+			// Find the larger of the two child values and assign it and
+			// its parent's value to the parent.
+			for(int x = 0; x < values.get(i - 1).size(); x++){
+				int greaterValue = values.get(i).get(x) > values.get(i).get(x+1) ?
+						values.get(i).get(x) : values.get(i).get(x+1);
+				values.get(i - 1).set(x, values.get(i - 1).get(x) + greaterValue);
+			}
+			
+			// Set the children to zero
+			for(int x = 0; x < values.get(i).size(); x++){
+				values.get(i).set(x, 0);
+			}
+		}
+		
+		return values.get(0).get(0);
 	}
 }

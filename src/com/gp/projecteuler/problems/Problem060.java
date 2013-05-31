@@ -23,11 +23,18 @@ import java.util.Set;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	The primes 3, 7, 109, and 673, are quite remarkable. By taking any two 
+	primes and concatenating them in any order the result will always be 
+	prime. For example, taking 7 and 109, both 7109 and 1097 are prime. 
+	The sum of these four primes, 792, represents the lowest sum for a 
+	set of four primes with this property.
+	
+	Find the lowest sum for a set of five primes for which any two primes 
+	concatenate to produce another prime.
+ */
 public class Problem060 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
 		long start = System.currentTimeMillis();
@@ -36,9 +43,10 @@ public class Problem060 {
 		
 		List<Long> primes = CommonMath.findPrimesUnder(9000);
 		
+		// Find pairs of primes that concatenate both ways to form a prime
 		for(int i = 0; i < primes.size(); i++){
 			for(int j = 0; j < primes.size(); j++){
-				if(primes.get(i) == primes.get(j)) continue;
+				if(i == j) continue;
 				boolean valid = false;
 				String way1 = Long.toString(primes.get(i)) + Long.toString(primes.get(j));
 				String way2 = Long.toString(primes.get(j)) + Long.toString(primes.get(i));
@@ -58,16 +66,7 @@ public class Problem060 {
 			}
 		}
 		
-//		StringBuilder sb = new StringBuilder();
-//		for(Set<Long> set : goodPairSet){
-//			sb.setLength(0);
-//			for(Long l : set){
-//				sb.append(l);
-//				sb.append(" ");
-//			}
-//			//System.out.println(sb.toString());
-//		}
-		
+		// Find groups of four primes that concatenate in any way to form a prime
 		Set<Set<Long>> goodQuadSet = new HashSet<Set<Long>>();
 		
 		for(Set<Long> setA : goodPairSet){
@@ -92,18 +91,7 @@ public class Problem060 {
 				goodQuadSet.add(gp);
 			}
 		}
-		
-		StringBuilder sb2 = new StringBuilder();
-		for(Set<Long> set : goodQuadSet){
-			sb2.setLength(0);
-			for(Long l : set){
-				sb2.append(l);
-				sb2.append(" ");
-			}
-			System.out.println(sb2.toString());
-		}
-		
-		
+				
 		Set<Set<Long>> goodPentSet = new HashSet<Set<Long>>();
 		
 		for(Set<Long> setA : goodQuadSet){
@@ -125,14 +113,17 @@ public class Problem060 {
 			}
 		}
 		
+		long answer = 0;
 		StringBuilder sb3 = new StringBuilder();
 		for(Set<Long> set : goodPentSet){
 			sb3.setLength(0);
 			for(Long l : set){
+				answer += l;
 				sb3.append(l);
 				sb3.append(" ");
 			}
-			System.out.println("Pents: " + sb3.toString());
+			System.out.println("The 5 primes: " + sb3.toString());
+			System.out.println("Answer (sum): " + answer);
 		}
 		
 		System.out.println(System.currentTimeMillis() - start);

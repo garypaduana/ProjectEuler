@@ -23,18 +23,23 @@ import java.util.Set;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	The cube, 41063625 (345^3), can be permuted to produce two other cubes:
+	56623104 (384^3) and 66430125 (405^3). In fact, 41063625 is the smallest
+	cube which has exactly three permutations of its digits which are also cube.
+	
+	Find the smallest cube for which exactly five permutations of its
+	digits are cube.
+ */
 public class Problem062 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 
 		long start = System.currentTimeMillis();
 		Set<String> cubes = new HashSet<String>();
 		
 		for(BigInteger bi = new BigInteger("0");
-			bi.compareTo(new BigInteger("20000")) <= 0;
+			bi.compareTo(new BigInteger("10000")) <= 0;
 			bi = bi.add(new BigInteger("1"))){
 			
 			cubes.add(bi.pow(3).toString());
@@ -42,7 +47,7 @@ public class Problem062 {
 		
 		
 		for(BigInteger bi = new BigInteger("0");
-			bi.compareTo(new BigInteger("20000")) <= 0;
+			bi.compareTo(new BigInteger("10000")) <= 0;
 			bi = bi.add(new BigInteger("1"))){
 			
 			int count = 0;
@@ -53,11 +58,12 @@ public class Problem062 {
 				}
 			}
 			if(count == 5){
-				System.out.println(bi.toString() + "^3" + " = " + bi.pow(3).toString());
+				System.out.println("Answer: " + bi.toString() + "^3" + 
+					" = " + bi.pow(3).toString());
 				break;
 			}
 		}
 		
-		System.out.println(System.currentTimeMillis() - start);
+		System.out.println("Duration: " + (System.currentTimeMillis() - start));
 	}
 }

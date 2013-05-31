@@ -19,32 +19,33 @@ package com.gp.projecteuler.problems;
 
 import java.math.BigInteger;
 
+/**
+	The 5-digit number, 16807=7^5, is also a fifth power. Similarly, 
+	the 9-digit number, 134217728=8^9, is a ninth power.
+	
+	How many n-digit positive integers exist which are also an nth power?
+ */
 public class Problem063 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
 		int count = 0;
 		long start = System.currentTimeMillis();
 		for(int i = 1; i < 100; i++){
-			if(i % 1000 == 0){
-				//System.out.println(i);
-			}
 			BigInteger bi = new BigInteger(Integer.toString(i));
 			
-			for(int pow = 0; pow < 300; pow++){
+			for(int pow = 0; pow < 30; pow++){
 				String biPow = bi.pow(pow).toString();
 				if(pow == biPow.length()){
 					count++;
-					System.out.println(i + "^" + pow + " = " + biPow + "    (" + biPow.length() + ")");
+					System.out.println(i + "^" + pow + " = " + biPow + "    ("
+						+ biPow.length() + ")");
 				}
 			}
 			
 		}
-		System.out.println("Total Count: " + count);
-		System.out.println("Time: " + (System.currentTimeMillis() - start) + " ms");
+		System.out.println("Answer: " + count);
+		System.out.println("Duration: " + (System.currentTimeMillis() - start));
 	}
 
 }
