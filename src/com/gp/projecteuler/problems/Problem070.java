@@ -27,18 +27,28 @@ import java.util.TreeSet;
 import com.gp.projecteuler.CommonMath;
 import com.gp.projecteuler.FileUtil;
 
+/**
+	Euler's Totient function, phi(n) [sometimes called the phi function], 
+	is used to determine the number of positive numbers less than or equal to
+	n which are relatively prime to n. For example, as 1, 2, 4, 5, 7, and 8, 
+	are all less than nine and relatively prime to nine, phi(9)=6.
+	The number 1 is considered to be relatively prime to every positive number, 
+	so phi(1)=1.
+	
+	Interestingly, phi(87109)=79180, and it can be seen that 87109 is a 
+	permutation of 79180.
+	
+	Find the value of n, 1  n  107, for which phi(n) is a permutation of n and 
+	the ratio n/phi(n) produces a minimum.
+ */
 public class Problem070 {
 
-	/**
-	 * @param args
-	 * @throws IOException 
-	 * @throws InterruptedException 
-	 */
 	public static void main(String[] args) throws IOException, InterruptedException {
 		
 		Set<Long> primes = new TreeSet<Long>();
 		
-		List<String> primeStrings = FileUtil.getTextFromFile("./resources/primesUnder10Million.txt");
+		List<String> primeStrings = FileUtil.getTextFromFile(
+				"./resources/primesUnder10Million.txt");
 		
 		for(String s : primeStrings){
 			primes.add(Long.valueOf(s));
@@ -50,8 +60,8 @@ public class Problem070 {
 		long nAtLowest = 0;
 		List<MyEulerWorker> tList = new ArrayList<MyEulerWorker>();
 		
-		for(long n = 2; n <= 10000000; n+=1000){
-			MyEulerWorker myWorker = new MyEulerWorker(n, n+1000, primes, lowestRatio, nAtLowest);
+		for(long n = 2; n <= 10000000; n+=10000){
+			MyEulerWorker myWorker = new MyEulerWorker(n, n+10000, primes, lowestRatio, nAtLowest);
 			
 			myWorker.start();
 			tList.add(myWorker);
@@ -63,14 +73,15 @@ public class Problem070 {
 						if(tt.getLowestRatio() < lowestRatio){
 							lowestRatio = tt.getLowestRatio();
 							nAtLowest = tt.getnAtLowest();
-							System.out.println("NEW RECORD:  Same permutation set: " + n + ", " + ", lowest ratio: " + lowestRatio + ", nAtLowest: " + nAtLowest);
+							System.out.println("NEW RECORD: lowest ratio: " + 
+									lowestRatio + ", nAtLowest: " + nAtLowest);
 						}
 						it.remove();
 					}
 				}
-				Thread.sleep(100);
 			}
 		}
+		System.out.println("Answer: " + nAtLowest);
 	}
 }
 
@@ -111,11 +122,7 @@ class MyEulerWorker extends Thread implements Runnable{
 	public void run() {	
 		for(long n = start; n <= stop; n++){			
 			long value = CommonMath.eulerTotientPrimeFactorizationCached(n, primes);
-			if(value == -1) {
-				continue;
-			}
 			if(CommonMath.isInSamePermutationSet(Long.toString(value), Long.toString(n))){
-				System.out.println("Same permutation set: " + n + ", " + value + ", lowest ratio: " + lowestRatio + ", nAtLowest: " + nAtLowest);
 				
 				double ratio = (double)n / (double)value;
 				

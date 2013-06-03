@@ -25,11 +25,12 @@ import java.util.Map;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	Problem 68 has a long description, please see:
+	https://projecteuler.net/problem=68
+ */
 public class Problem068 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
 		long start = System.currentTimeMillis();
@@ -52,17 +53,20 @@ public class Problem068 {
 		perms.addAll(CommonMath.permutation("abcdefghij"));
 		for(String perm : perms){
 			List<Integer> values = convertStringToIntegerListWithMap(numMap, perm);
+			// For this permutation, find what the Total is and then try
+			// to find a solution set if all of the other values are aligned properly
 			int thisSum = values.get(0) + values.get(1) + values.get(2);
-			//if(!validSums.contains(thisSum)) continue outer;
 			if(values.get(0) + values.get(1) + values.get(2) == thisSum){
 				if(values.get(3) + values.get(2) + values.get(4) == thisSum){
 					if(values.get(5) + values.get(4) + values.get(6) == thisSum){
 						if(values.get(7) + values.get(6) + values.get(8) == thisSum){
 							if(values.get(9) + values.get(8) + values.get(1) == thisSum){
-								
+								// Choose a larger number than 10 as default
+								// so that all values are smaller
 								int min = 12;
 								int minLocation = -1;
 								
+								// Searching for numerically lowest external node
 								for(int i : Arrays.asList(0,3,5,7,9)){
 									if(values.get(i) < min){
 										min = values.get(i);
@@ -70,6 +74,8 @@ public class Problem068 {
 									}
 								}
 								
+								// Concatenate all the values together following
+								// the rules
 								StringBuffer sb = new StringBuffer();
 								for(int i = order.indexOf(minLocation); i < order.size(); i++){
 									sb.append(Integer.toString(values.get(order.get(i))));
@@ -85,16 +91,16 @@ public class Problem068 {
 			}
 		}
 		
+		// Find the maximum solution among 16 digit solutions.
 		long max16 = 0;
 		for(String solution : solutions){
-			//System.out.println(solution);
 			if(solution.length() == 16){
 				long val = Long.valueOf(solution);
 				if(val > max16) max16 = val;
 			}
 		}
 		
-		System.out.println(max16);
+		System.out.println("Answer: " + max16);
 		System.out.println("Duration: " + (System.currentTimeMillis() - start));
 	}
 

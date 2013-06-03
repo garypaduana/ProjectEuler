@@ -86,7 +86,6 @@ public class Fraction implements Comparable<Fraction>{
 			return 1;
 		}
 		else{
-			System.out.println("Got here: arg0: " + arg0.toString() + ", this: " + this.toString());
 			return (arg0.getNumerator() > this.numerator) ? -1 : 1;
 		}
 	}

@@ -496,15 +496,19 @@ public class CommonMath {
 	}
 	
 	/**
-	 * Fail-fast prime factorization that fails once the upperLimit is exceeded.  This is used when
-	 * searching for numbers that have no more than upperLimit number of distinct prime factors.  A null
-	 * is returned instead of an empty Set to show that the condition has been violated.
+	 * Fail-fast prime factorization that fails once the upperLimit is 
+	 * exceeded.  This is used when searching for numbers that have no more 
+	 * than upperLimit number of distinct prime factors.  A null is returned
+	 * instead of an empty Set to show that the condition has been violated.
+	 * 
 	 * @param num
 	 * @param primes
 	 * @param upperLimit
 	 * @return
 	 */
-	public static Set<Long> findDistinctPrimeFactors(long num, Set<Long> primes, long upperLimit){
+	public static Set<Long> findDistinctPrimeFactors(
+			long num, Set<Long> primes){
+		
 		Set<Long> factors = new TreeSet<Long>();
 		if(primes.contains(num)){
 			factors.add(num);
@@ -512,7 +516,7 @@ public class CommonMath {
 		}
 		
 		long i = 2;
-		while(i <= num){
+		while(i <= (long)Math.sqrt(num)){
 			if(!primes.contains(i)){
 				i++;
 				continue;
@@ -520,15 +524,14 @@ public class CommonMath {
 			
 			if(num % i == 0){
 				factors.add(i);
+				if(primes.contains(num / i)){
+					factors.add(num / i);
+				}
+				
 				num = num / i;
 				i = 2;
 			}
 			i++;
-			
-			if(factors.size() > upperLimit){
-				return null;
-			}
-			
 		}
 		
 		return factors;
@@ -927,13 +930,20 @@ public class CommonMath {
 		return (long)sum;
 	}
 	
+	/**
+	 * Euler's product formula example:
+	 * 
+	 * phi(36) = phi(2^2 * 3^2) = 36 * (1-1/2) * (1-1/3) = 36 * 1/2 * 2/3 = 12
+	 * 
+	 * @param n
+	 * @param primes
+	 * @return
+	 */
 	public static long eulerTotientPrimeFactorizationCached(long n, Set<Long> primes){
 		
 		double sum = n;
-		Set<Long> primeFactors = findDistinctPrimeFactors(n, primes, 2);
-		if(primeFactors == null){
-			return -1;
-		}
+		Set<Long> primeFactors = findDistinctPrimeFactors(n, primes);
+
 		for(long factor : primeFactors){
 			sum = sum * (1 - 1 / (double)factor);
 		}
