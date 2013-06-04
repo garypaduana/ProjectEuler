@@ -305,6 +305,23 @@ public class CommonMath {
 	}
 	
 	/**
+	 * Returns the sum of each digit's factorial.
+	 * 
+	 * e.g. 145 returns 1! + 4! + 5! = 145
+	 * @param num
+	 * @return
+	 */
+	public static long factorialSumOfDigits(long num){
+		long sum = 0;
+		String s = Long.toString(num);
+		
+		for(char c : s.toCharArray()){
+			sum += factorial(Long.valueOf(String.valueOf(c)));
+		}
+		return sum;
+	}
+	
+	/**
 	 * Returns all permutations of the input string.
 	 * @param str
 	 * @return
@@ -921,10 +938,17 @@ public class CommonMath {
 		return (long)sum;
 	}
 	
-	public static long eulerTotient(long n, List<Long> factors){
+	/**
+	 * Calculates the number of numbers that are coprime to n.
+	 * 
+	 * @param n
+	 * @param primeFactors
+	 * @return
+	 */
+	public static long eulerTotient(long n, List<Long> primeFactors){
 		
 		double sum = n;
-		for(long factor : factors){
+		for(long factor : primeFactors){
 			sum = sum * (1 - 1 / (double)factor);
 		}
 		return (long)sum;

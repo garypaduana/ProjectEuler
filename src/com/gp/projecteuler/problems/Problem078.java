@@ -21,22 +21,31 @@ import java.math.BigInteger;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	Let p(n) represent the number of different ways in which n coins can be
+	separated into piles. For example, five coins can separated into piles
+	in exactly seven different ways, so p(5)=7.
+	
+	OOOOO
+	OOOO   O
+	OOO   OO
+	OOO   O   O
+	OO   OO   O
+	OO   O   O   O
+	O   O   O   O   O
+	Find the least value of n for which p(n) is divisible by one million.
+ */
 public class Problem078 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		CommonMath cm = new CommonMath();
 				
 		for(int i = 1; i < 100000; i++){
 			BigInteger value = cm.partitionsFinite(i);
-			System.out.println(i + ", " + value.toString());
 			if(value.remainder(CommonMath.ONE_MILLION).equals(new BigInteger("0"))){
-				System.out.println("Divisible by 1,000,000: " + i);
+				System.out.println("Answer: " + i);
 				break;
 			}
 		}
-		
 	}
 }

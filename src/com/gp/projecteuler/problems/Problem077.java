@@ -17,27 +17,46 @@
 
 package com.gp.projecteuler.problems;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	It is possible to write ten as the sum of primes in exactly five 
+	different ways:
+	
+	7 + 3
+	5 + 5
+	5 + 3 + 2
+	3 + 3 + 2 + 2
+	2 + 2 + 2 + 2 + 2
+	
+	What is the first value which can be written as the sum of primes in 
+	over five thousand different ways?
+ */
 public class Problem077 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
 		Set<Long> primes = new TreeSet<Long>(CommonMath.findPrimesUnder(100000));
 		
-		for(long i = 0; i < 100; i++){
-			List<List<Long>> partitions = CommonMath.partitionVerboseWithRecursion(i);
+		List<List<Long>> partitions = new ArrayList<List<Long>>();
+		long i = 0;
+		long primeOnlyPartitions = 0;
+		while(primeOnlyPartitions <= 5000){
+			i++;
+			partitions.clear();
+			partitions.addAll(CommonMath.partitionVerboseWithRecursion(i));
 			
-			if(partitions.size() < 5000) continue;
 			
-			long primeOnlyPartitions = 0;
+			if(partitions.size() < 5000){
+				continue;
+			}
+			primeOnlyPartitions = 0;
+			
 			listLoop:
 			for(List<Long> list : partitions){
 				for(long n : list){
@@ -47,23 +66,8 @@ public class Problem077 {
 				}
 				primeOnlyPartitions++;
 			}
-			System.out.println(i + ": " + primeOnlyPartitions + " / " + partitions.size());
 		}
+		System.out.println("Answer: " + i + ", prime only partitions: " + 
+			primeOnlyPartitions);
 	}
-	
-	
-	public static void partition(int n) {
-        partition(n, n, "");
-    }
-    public static void partition(int n, int max, String prefix) {
-    	if (n == 0) {
-            System.out.println(prefix);
-            return;
-        }
-  
-        for (int i = Math.min(max, n); i >= 1; i--) {
-            partition(n-i, i, prefix + " " + i);
-        }
-    }
-
 }

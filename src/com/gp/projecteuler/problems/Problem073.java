@@ -24,12 +24,23 @@ import java.util.TreeSet;
 
 import com.gp.projecteuler.FileUtil;
 
+/**
+	Consider the fraction, n/d, where n and d are positive integers. If n<d 
+	and HCF(n,d)=1, it is called a reduced proper fraction.
+	
+	If we list the set of reduced proper fractions for d <= 8 in ascending 
+	order of size, we get:
+	
+	1/8, 1/7, 1/6, 1/5, 1/4, 2/7, 1/3, 3/8, 2/5, 3/7, 1/2, 4/7, 3/5, 5/8, 
+	2/3, 5/7, 3/4, 4/5, 5/6, 6/7, 7/8
+	
+	It can be seen that there are 3 fractions between 1/3 and 1/2.
+	
+	How many fractions lie between 1/3 and 1/2 in the sorted set of reduced 
+	proper fractions for d  12,000?
+ */
 public class Problem073 {
 
-	/**
-	 * @param args
-	 * @throws IOException 
-	 */
 	public static void main(String[] args) throws IOException {
 		
 		long start = System.currentTimeMillis();
@@ -42,10 +53,6 @@ public class Problem073 {
 			
 			String[] pieces = s.split(";");
 			long num = Long.valueOf(pieces[0]);
-			if(num % 100 == 0){
-				System.out.println(num);
-			}
-			//List<Long> factors = CommonMath.convertList(Arrays.asList(pieces[1].split(",")));
 			
 			for(int n = (int)((double)num * 1.0/3.0); ((double)n / (double)num) < 1.0/2.0; n++){
 				
@@ -57,21 +64,8 @@ public class Problem073 {
 			}
 		}
 		
-		StringBuilder sb = new StringBuilder();
-		for(double d : datSet){
-			sb.append(Double.toString(d));
-			sb.append("\r\n");
-			
-			if(sb.length() > 100000){
-				FileUtil.writeTextToFile("./resources/problem073.txt", sb.toString(), true);
-				sb.setLength(0);
-			}
-			
-		}
-		FileUtil.writeTextToFile("./resources/problem073.txt", sb.toString(), true);
-		
-		System.out.println(datSet.size());
-		System.out.println((System.currentTimeMillis() - start) + " ms");
+		System.out.println("Answer: " + datSet.size());
+		System.out.println("Duration: " + (System.currentTimeMillis() - start));
 	}
 
 }
