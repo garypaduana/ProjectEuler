@@ -18,22 +18,22 @@
 package com.gp.projecteuler.problems;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.gp.projecteuler.CommonMath;
 import com.gp.projecteuler.Location;
 import com.gp.projecteuler.Node;
 
 /**
-	NOTE: This problem is a more challenging version of Problem 81.
+	NOTE: This problem is a significantly more challenging version of 
+	Problem 81.
 	
-	The minimal path sum in the 5 by 5 matrix below, by starting in any 
-	cell in the left column and finishing in any cell in the right column, 
-	and only moving up, down, and right, is indicated in red and bold; 
-	the sum is equal to 994.
+	In the 5 by 5 matrix below, the minimal path sum from the top left to 
+	the bottom right, by moving left, right, up, and down, is indicated 
+	in bold red and is equal to 2297.
 	
 	
 	131	673	234	103	18
@@ -42,19 +42,19 @@ import com.gp.projecteuler.Node;
 	537	699	497	121	956
 	805	732	524	37	331
 	
-	(201, 96, 342, 234, 103, 18)
+	(131, 201, 96, 342, 234, 103, 18, 150, 111, 422, 121, 37, 331)
 	
 	Find the minimal path sum, in matrix.txt (right click and 
-	'Save Link/Target As...'), a 31K text file containing a 80 by 80
-	 matrix, from the left column to the right column.
+	'Save Link/Target As...'), a 31K text file containing a 80 by 80 matrix, 
+	from the top left to the bottom right by moving left, right, up, and down.
  */
-public class Problem082 {
+public class Problem083 {
 
 	public static void main(String[] args) throws IOException {
 		long start = System.currentTimeMillis();
 		
-		List<List<Long>> elements = CommonMath
-				.getElementsFromFile("./resources/Problem082.txt");
+		List<List<Long>> elements = CommonMath.
+				getElementsFromFile("./resources/Problem083.txt");
 		Map<Location, Node> nodes = CommonMath.buildNodeFromElements(elements);
 		
 		for(int row = 0; row < elements.size(); row++){
@@ -63,29 +63,16 @@ public class Problem082 {
 				nodes.get(thisLocation).addChild(nodes.get(new Location(row - 1, col)));
 				nodes.get(thisLocation).addChild(nodes.get(new Location(row + 1, col)));
 				nodes.get(thisLocation).addChild(nodes.get(new Location(row, col + 1)));
+				nodes.get(thisLocation).addChild(nodes.get(new Location(row, col - 1)));
 			}
 		}
 		
-		Set<Node> destinationNodeSet = new HashSet<Node>();
-		for(int i = 0; i < elements.size(); i++){
-			destinationNodeSet.add(nodes.get(
-				new Location(i, elements.get(0).size() - 1)));
-		}
+		long answer = CommonMath.findShortestPathDistance(
+			nodes.get(new Location(0,0)),
+			new HashSet<Node>(Arrays.asList(nodes.get(new Location(79,79)))),
+			new HashSet<Node>(nodes.values()));
 		
-		long shortestDistance = Long.MAX_VALUE;
-		
-		for(int i = 0; i < elements.size(); i ++){
-			long result = CommonMath.findShortestPathDistance(
-				nodes.get(new Location(i,0)),
-				destinationNodeSet,
-				new HashSet<Node>(nodes.values()));
-			
-			if(result < shortestDistance){
-				shortestDistance = result;
-			}
-		}
-		
-		System.out.println("Answer: " + shortestDistance);
+		System.out.println("Answer: " + answer);
 		System.out.println("Duration: " + (System.currentTimeMillis() - start));
 	}
 }

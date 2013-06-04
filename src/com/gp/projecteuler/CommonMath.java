@@ -17,6 +17,7 @@
 
 package com.gp.projecteuler;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -27,6 +28,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -1465,5 +1467,49 @@ public class CommonMath {
 		}
 		
 		return values.get(0).get(0);
+	}
+	
+	/**
+	 * Opens a text file and reads in comma separated elements.
+	 * 
+	 * @param path
+	 * @return
+	 * @throws IOException
+	 */
+	public static List<List<Long>> getElementsFromFile(String path) throws IOException{
+		List<String> sample = FileUtil.getTextFromFile(path);
+		
+		List<List<Long>> elements = new ArrayList<List<Long>>();
+		
+		for(String s : sample){
+			String[] pieces = s.split(",");
+			List<Long> row = new ArrayList<Long>();
+			for(String piece : pieces){
+				row.add(Long.valueOf(piece));
+			}
+			elements.add(row);
+		}
+		
+		return elements;
+	}
+	
+	/**
+	 * Constructs a Node Map structure based on a raw data element structure
+	 * that was most likely created from a text file.
+	 * 
+	 * @param elements
+	 * @return
+	 */
+	public static Map<Location, Node> buildNodeFromElements(List<List<Long>> elements){
+		Map<Location, Node> nodes = new HashMap<Location, Node>();
+		
+		for(int row = 0; row < elements.size(); row++){
+			for(int col = 0; col < elements.get(0).size(); col++){
+				Location loc = new Location(row, col);
+				nodes.put(loc, new Node(elements.get(row).get(col), loc));
+			}
+		}
+		
+		return nodes;
 	}
 }
