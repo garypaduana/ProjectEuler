@@ -18,27 +18,27 @@
 package com.gp.projecteuler.problems;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.gp.projecteuler.CommonMath;
 import com.gp.projecteuler.FileUtil;
-import com.gp.projecteuler.Location;
 
+/**
+	By counting carefully it can be seen that a rectangular grid measuring
+	3 by 2 contains eighteen rectangles:
+	
+		(image available at: https://projecteuler.net/problem=85)
+		
+	Although there exists no rectangular grid that contains exactly two 
+	million rectangles, find the area of the grid with the nearest solution.
+ */
 public class Problem085 {
 
-	/**
-	 * @param args
-	 * @throws IOException 
-	 */
 	public static void main(String[] args) throws IOException {
 		int maxXSize = 130;
 		int maxYSize = 130;
+		int smallestDifference = Integer.MAX_VALUE;
 		
-		Map<Integer, Integer> sizeToRectangleMap = new TreeMap<Integer, Integer>();
-		StringBuilder sb = new StringBuilder();
 		// Changes the size of the outer rectangle
 		for(int xSize = 1; xSize <= maxXSize; xSize++){
 			for(int ySize = 1; ySize <= maxYSize; ySize++){
@@ -48,26 +48,23 @@ public class Problem085 {
 				for(int xPos = 1; xPos <= xSize; xPos++){
 					for(int yPos = 1; yPos <= ySize; yPos++){
 					
-						// Counts triangles in this specific area 
+						// Counts rectangles in this specific area 
 						for(int x = xPos; x <= xSize; x++){
 							for(int y = yPos; y <= ySize; y++){
 								rectangleSum++;
-								//System.out.println(x + ", " + y);
 							}
 						}
 					}
 				}
-				sb.append((xSize + "x" + ySize + ", " + rectangleSum) + "\r\n");
-				sizeToRectangleMap.put(xSize * ySize, rectangleSum);
 				
-				if(sb.length() > 1000){
-					FileUtil.writeTextToFile("./resources/Problem085_output.txt", sb.toString(), true);
-					sb.setLength(0);
+				int difference = Math.abs(2000000 - (rectangleSum));
+				
+				if(difference < smallestDifference){
+					smallestDifference = difference;
+					System.out.println("Size (best answer so far): " +
+						(xSize * ySize)	+ ", difference: " + smallestDifference);
 				}
 			}
 		}
-		
-		FileUtil.writeTextToFile("./resources/Problem085_output.txt", sb.toString(), true);
 	}
-
 }
