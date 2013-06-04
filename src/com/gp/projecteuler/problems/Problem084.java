@@ -17,29 +17,46 @@
 
 package com.gp.projecteuler.problems;
 
+import java.util.SortedMap;
+import java.util.TreeMap;
+
 import com.gp.projecteuler.Monopoly;
 import com.gp.projecteuler.Monopoly.Square;
 
+/**
+	Long problem description, please see:
+	https://projecteuler.net/problem=84
+ */
 public class Problem084 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
 		Monopoly monopoly = new Monopoly();
+		int rolls = 1000000;
 		
-		for(int i = 0; i < 100000; i++){
+		for(int i = 0; i < rolls; i++){
 			monopoly.roll();
 		}
 		
+		SortedMap<Double, Square> results = new TreeMap<Double, Square>();
 		
 		for(Square s : monopoly.getSquareFrequency().keySet()){
-			System.out.println(s.toString() + ": " + 
-					(double)((double)monopoly.getSquareFrequency().get(s) * 100.0 / 100000.0));
+			double percent = (double)((double)monopoly
+					.getSquareFrequency().get(s) * 100.0 / (double)rolls);
+			
+			results.put(percent, s);
 		}
 		
+		String answer = "";
+		for(double d : results.keySet()){
+			System.out.println(d + ", " + results.get(d));
+			answer = (results.get(d).getIndex() + "" + answer);
+			if(answer.length() >= 6){
+				answer = answer.substring(0, 6);
+			}
+		}
+		
+		System.out.println("\nAnswer: " + answer);
 		
 	}
-
 }

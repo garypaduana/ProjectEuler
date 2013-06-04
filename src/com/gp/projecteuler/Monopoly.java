@@ -86,7 +86,7 @@ public class Monopoly {
 	}
 	
 	private Random random = new Random();
-	private int dieSides = 6;
+	private int dieSides = 4;
 	private Map<Integer, Square> reverseLookupSquare = new TreeMap<Integer, Square>();
 	private Map<Integer, CommunityChest> reverseLookupCommunityChest = new TreeMap<Integer, CommunityChest>();
 	private Map<Integer, Chance> reverseLookupChance = new TreeMap<Integer, Chance>();
