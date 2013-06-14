@@ -1512,4 +1512,23 @@ public class CommonMath {
 		
 		return nodes;
 	}
+	
+	/**
+	 * Long power calculation.  Roughly 10x faster than 
+	 * Math.pow(double a, double b) cast to long.
+	 * 
+	 * @param num
+	 * @param power
+	 * @return
+	 */
+	public static long pow(long num, long power){
+		if(power < 0){
+			throw new IllegalArgumentException("Power is less than zero!");
+		}
+		long product = 1;
+		for(int i = 0; i < power; i++){
+			product *= num;
+		}
+		return product;
+	}
 }

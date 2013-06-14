@@ -19,8 +19,6 @@ package com.gp.projecteuler.problems;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import com.gp.projecteuler.CommonMath;
 

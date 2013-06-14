@@ -23,47 +23,59 @@ import java.util.TreeSet;
 
 import com.gp.projecteuler.CommonMath;
 
+/**
+	The smallest number expressible as the sum of a prime square,
+	prime cube, and prime fourth power is 28. In fact, there are exactly 
+	four numbers below fifty that can be expressed in such a way:
+	
+	28 = 2^2 + 2^3 + 2^4
+	33 = 3^2 + 2^3 + 2^4
+	49 = 5^2 + 2^3 + 2^4
+	47 = 2^2 + 3^3 + 2^4
+	
+	How many numbers below fifty million can be expressed as the sum of a 
+	prime square, prime cube, and prime fourth power?
+ */
 public class Problem087 {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		
+		long start = System.currentTimeMillis();
+		
+		// 7100 * 7100 = 50,410,000  (greater than 50 million in problem)
 		List<Long> primes = CommonMath.findPrimesUnder(7100);
 		Set<Long> products = new TreeSet<Long>();
 		long upper = 50000000;
 
 		iLoop:
 		for(int i = 0; i < primes.size(); i++){
+			long ipow = CommonMath.pow(primes.get(i), 2);
+			if(ipow > upper){
+				continue iLoop;
+			}
 			
 			jLoop:
 			for(int j = 0; j < primes.size(); j++){
-				if(pow(j, 3) > upper) continue iLoop;
-
+				long jpow = CommonMath.pow(primes.get(j), 3);
+				if(ipow + jpow > upper){
+					continue jLoop;
+				}
+				
+				kLoop:
 				for(int k = 0; k < primes.size(); k++){
-					if(pow(k, 4) > upper) continue jLoop;
+					long kpow = CommonMath.pow(primes.get(k), 4);
 					
-					long product = pow(primes.get(i), 2) + pow(primes.get(j), 3) + pow(primes.get(k), 4);
+					long product = ipow + jpow + kpow;
 					
-					if(product <= upper){
-						products.add(product);
+					if(product > upper){
+						continue kLoop;
 					}
+					products.add(product);
 				}
 			}
 		}
 		
-		System.out.println(products.size());
-	}
-
-	public static long pow(long num, long power){
-		if(power < 0){
-			throw new IllegalArgumentException("Power is less than zero!");
-		}
-		long product = 1;
-		for(int i = 0; i < power; i++){
-			product *= num;
-		}
-		return product;
+		System.out.println("Answer: " + products.size());
+		System.out.println("Duration: " + (System.currentTimeMillis() - start));
 	}
 }
