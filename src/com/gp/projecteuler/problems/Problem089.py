@@ -33,10 +33,10 @@ def main():
     count = 0
     with open('./../../../../../resources/Problem089.txt', 'r') as f:
         text = f.read()
-        for l in text.split('\n'):
-            number = numberFromNumeral(l)
+        for line in text.split('\n'):
+            number = numberFromNumeral(line)
             minimal = minimalRomanNumeralForm(number)
-            count += len(l) - len(minimal)
+            count += len(line) - len(minimal)
     print "Answer:", count
     print "Duration:", (datetime.datetime.now() - start)
 
