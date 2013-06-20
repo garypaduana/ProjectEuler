@@ -15,38 +15,38 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+import datetime
+
 def main():
+    start = datetime.datetime.now()
+
     count = 0
-    lookup = dict()
+    lookup = [0 for x in range(0, 9**2*7 + 1)]
     for i in range(1, 10000000):
-        #print i, lookup
-        this_lookup = []
-        
         nex = next_num(i)
-        this_lookup.append(nex)
+        this_lookup = nex
         
+        if lookup[nex] != 0:
+            nex = lookup[nex]
+               
         while(nex != 89 and nex != 1):
-            if(nex in lookup.keys()):
+            if lookup[nex] != 0:
                 nex = lookup[nex]
                 break
             nex = next_num(nex)
-            this_lookup.append(nex)
-            
+
+        lookup[this_lookup] = nex
         if(nex == 89):
             count += 1
-            for n in this_lookup:
-                lookup[n] = 89
-        else:
-            for n in this_lookup:
-                lookup[n] = 1
-            
-    print count
+    print "Answer:", count
+    print "Duration:", (datetime.datetime.now() - start)
 
 def next_num(num):
     sum = 0
-    for x in str(num):
-        sum += int(x)**2
+    while(num > 0):
+        sum += (num % 10)*(num % 10)
+        num = num // 10
     return sum
-
+    
 if __name__ == "__main__":
     main()
