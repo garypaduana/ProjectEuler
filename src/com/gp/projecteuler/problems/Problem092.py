@@ -18,14 +18,34 @@
 import datetime
 
 def main():
-    start = datetime.datetime.now()
+    """
+        A number chain is created by continuously adding the
+        square of the digits in a number to form a new number
+        until it has been seen before.
 
+        For example,
+
+        44 -> 32 -> 13 -> 10 -> 1 -> 1
+        85 -> 89 -> 145 -> 42 -> 20 -> 4 -> 16 -> 37 -> 58 -> 89
+
+        Therefore any chain that arrives at 1 or 89 will become
+        stuck in an endless loop. What is most amazing is that
+        EVERY starting number will eventually arrive at 1 or 89.
+
+        How many starting numbers below ten million will arrive at 89?
+    """
+    start = datetime.datetime.now()
     count = 0
+    # create a lookup array of size 567.  9,999,999 run through
+    # the algorithm will produce the largest first round product,
+    # and it is no more than 9^2 * 7 = 567
+    # store either 0, 1, or 89 in each position.
     lookup = [0 for x in range(0, 9**2*7 + 1)]
     for i in range(1, 10000000):
         nex = next_num(i)
         this_lookup = nex
-        
+
+        # if we already have an answer to this chain, jump to it
         if lookup[nex] != 0:
             nex = lookup[nex]
                
