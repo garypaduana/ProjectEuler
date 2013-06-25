@@ -54,41 +54,55 @@ public class Problem086 {
 	 */
 	public static void main(String[] args) throws IOException {
 		long start = System.currentTimeMillis();
+				
+		int count = 0;
+		int mAtAnswer = 0;
 		
-		Map<UniqueCollection, Double> shortestIntegerPaths = new HashMap<UniqueCollection, Double>();
-		
-		for(int m = 1818; m <= 1818; m++){
-			for(int i = 1; i <= m; i++){
-				for(int j = 1; j <= m; j++){
-					for(int k = 1; k <= m; k++){
-						double distance = findMinimumPath(i, j, k);
-						UniqueCollection uc = new UniqueCollection(i, j, k);
-
-						if(shortestIntegerPaths.containsKey(uc)){
-							if(distance < shortestIntegerPaths.get(uc)){
-								System.out.println("removed: " + shortestIntegerPaths.remove(uc) + 
-									", " + shortestIntegerPaths.size());
-							}
-						}
+		outer:
+		for(int m = 1; m <= 100; m++){
+			
 						
-						if(distance == Math.floor(distance)){
-							shortestIntegerPaths.put(uc, distance);
+						if(minimumIsIntegral(i, j, k)){
+							count++;
 						}
 					}
 				}
 			}
 			
-			System.out.println(m + ", " + shortestIntegerPaths.size());
-			shortestIntegerPaths.clear();
+			System.out.println(m + ", " + count);
+			
+			if(count > 1000000){
+				mAtAnswer = m;
+				break outer;
+			}
 		}
 		
+		System.out.println("Answer: " + mAtAnswer);
 		System.out.println("Duration: " + (System.currentTimeMillis() - start));
 	}
 	
-	public static double findMinimumPath(int width, int height, int depth){
-		int a = width;
-		int b = depth + height;
-		return Math.sqrt(a * a + b * b);
+	public static double findDistance(int m, int l){
+		return Math.sqrt(m * m + (l+m)*(l+m));
+	}
+	
+	public static boolean minimumIsIntegral(int a, int b, int c){
+		double one = Math.sqrt(a*a + (b+c)*(b+c));
+		double two = Math.sqrt((a+c)*(a+c) + b*b);
+		double three = Math.sqrt(a*a+b*b) + c;
+		
+		double minimum = minimum(one, two, three);
+		
+		return Math.floor(minimum) == minimum;
+	}
+	
+	public static double minimum(double... args){
+		double minimum = Double.MAX_VALUE;
+		for(double d : args){
+			if(d < minimum){
+				minimum = d;
+			}
+		}
+		return minimum;
 	}
 
 }
