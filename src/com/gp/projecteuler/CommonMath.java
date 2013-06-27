@@ -84,16 +84,9 @@ public class CommonMath {
 	 * @return
 	 */
 	public static List<Long> findProperDivisors(long n){
-		List<Long> divisors = findFactors(n);
-		divisors.remove(new Long(n));
-		
-		Set<Long> uniqueDivisors = new TreeSet<Long>();
-		for(long l : divisors){
-			uniqueDivisors.add(l);
-		}
-		divisors.clear();
-		divisors.addAll(uniqueDivisors);
-		return divisors;
+		List<Long> result = new ArrayList<Long>(new TreeSet<Long>(findFactors(n)));
+		result.remove(n);
+		return result;
 	}
 	
 	/**
@@ -106,6 +99,14 @@ public class CommonMath {
 		long sum = 0;
 		for(Number number : numbers){
 			sum += number.longValue();
+		}
+		return sum;
+	}
+	
+	public static long sumListOfLong(List<Long> numbers){
+		long sum = 0;
+		for(long number : numbers){
+			sum += number;
 		}
 		return sum;
 	}
