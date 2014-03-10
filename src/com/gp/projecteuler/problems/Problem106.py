@@ -23,8 +23,7 @@ import sys
 sys.path.append('../')
 
 def main():
-    # INCOMPLETE!!
-    
+    start = datetime.datetime.now()    
     lowest = 999999
     x = [3,5,6,7]
     if(areRulesTrue(x)):
