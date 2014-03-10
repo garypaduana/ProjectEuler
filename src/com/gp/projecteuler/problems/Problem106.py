@@ -15,19 +15,25 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import sys
-import re
-import itertools
-sys.path.append('../')
 import CommonPy
+import datetime
+import itertools
+import re
+import sys
+sys.path.append('../')
 
 def main():
+    # INCOMPLETE!!
+    
     lowest = 999999
     x = [3,5,6,7]
     if(areRulesTrue(x)):
         if(CommonPy.S(x) < lowest):
             print x
             lowest = CommonPy.S(x)
+    
+    print "Answer:", 'NOT YET SOLVED'
+    print "Duration:", (datetime.datetime.now() - start)
 
 def areRulesTrue(a):
     everLasting = True
@@ -45,7 +51,6 @@ def areRulesTrue(a):
                 #    if(sb <= sc):
                 #       everLasting = False
     return everLasting
-
 
 if __name__ == '__main__':
     main()
