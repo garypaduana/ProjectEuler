@@ -1,96 +1,96 @@
+'''
+    Project Euler Solutions
+    Copyright (C) 2012-2013, Gary Paduana, gary.paduana@gmail.com
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+'''
+
 import copy
 import csv
- 
-#http://www.python.org/doc/essays/graphs/
- 
-def connected(grid):
+import datetime
+import os
+
+def createGraph(grid):
     graph = {}
-   
     for row in range(0, len(grid)):
-        conns = []
-        for col in range(0, len(grid)):
-            if(grid[row][col] > 0):
-                conns.append(col)
-        graph[row] = conns
-  
-    paths = findAllPaths(graph, 0, len(grid))
-    graph = {'A': ['B', 'C'],
-             'B': ['C', 'D'],
-             'C': ['D'],
-             'D': ['C'],
-             'E': ['F'],
-             'F': ['C']}
- 
-    print findAllPaths(graph, 'A', 'D')
-    for p in paths:
-        if(len(p) == len(grid)):
-            return True
-    return False
- 
- 
-   
+        graph[row] = Node(row)
     
-class Node:
-    index = 0
-    connections = []
-    visited = False
- 
+    for row in range(0, len(grid)):
+        for column in range(0, len(grid)):
+            if(grid[row][column] > 0):              
+                graph[row].connections.append(graph[column].index)
+    return graph
+
+def connected(graph, current, visitedNodes):
+    if(graph[current].visited == False):
+        visitedNodes.append(current)
+        graph[current].visited = True
+    for node in graph[current].connections:
+        if(graph[node].visited == False):
+            visitedNodes.append(node)
+            graph[node].visited = True
+            connected(graph, node, visitedNodes)
+    return visitedNodes
+    
+class Node:    
     def __init__(self, index):
         self.index = index
+        self.connections = []
+        self.visited = False
     def __str__(self):
-        return str(index) + ', ' + str(connections)
+        return 'index: ' + str(self.index) + ', connections: ' + str(self.connections)
     def __repr__(self):
-        return str(self.index) + ', ' + str(self.connections)  
- 
-def findAllPaths(graph, start, end, path=[]):
-    path = path + [start]
-    if start == end:
-        return [path]
-    if not graph.has_key(start):
-        return []
-    paths = []
-    for node in graph[start]:
-        if node not in path:
-            newpaths = findAllPaths(graph, node, end, path)
-            for newpath in newpaths:
-                paths.append(newpath)
-    return paths
-   
+        return 'index: ' + str(self.index) + ', connections: ' + str(self.connections)
+    
 def main():
+    print os.getcwd()
+    start = datetime.datetime.now()
     grid = []
-    with open ('./../../../../../resources/network.txt', 'rb') as f:
+    with open ('../../../../../resources/network.txt', 'rb') as f:
         data = csv.reader(f, delimiter=',', quotechar='\'')
         for row in data:
             row = [x.replace('-','0') for x in row]
             row = [int(x) for x in row]
             grid.append(row)
-           
-    grid = [[0,16,12,21,0,0,0],
-            [16,0,0,17,20,0,0],
-            [12,0,0,28,0,31,0],
-            [21,17,28,0,18,19,23],
-            [0,20,0,18,0,0,11],
-            [0,0,31,19,0,0,27],
-            [0,0,0,23,11,27,0]]
-   
+            
     weights = {}
     for row in range(0, len(grid)):
         for column in range(0, len(grid[0])):
             if(grid[row][column] not in weights):
                 weights[grid[row][column]] = []
             weights[grid[row][column]].append((row, column))
-           
+            
     savings = 0
     sortedKeys = sorted(weights, reverse=True)
+    temp = copy.deepcopy(grid)
     for i in range(0, len(sortedKeys)):
         for pair in weights[sortedKeys[i]]:
-            temp = copy.deepcopy(grid)
             temp[pair[0]][pair[1]] = 0
             temp[pair[1]][pair[0]] = 0
-            if(connected(temp)):
+            graph = createGraph(temp)
+            
+            if(len(connected(graph, 0, [])) == len(temp)):
                 savings += sortedKeys[i]
-                grid = copy.deepcopy(temp)
-    print savings / 2
-   
+                grid[pair[0]][pair[1]] = 0
+                grid[pair[1]][pair[0]] = 0
+            else:
+                temp[pair[0]][pair[1]] = grid[pair[0]][pair[1]]
+                temp[pair[1]][pair[0]] = grid[pair[1]][pair[0]]
+
+    print "Answer:", savings / 2
+    print "Duration:", (datetime.datetime.now() - start)
+    
 if __name__ == '__main__':
     main()
+
+        

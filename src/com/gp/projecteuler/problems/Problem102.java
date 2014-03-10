@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gp.projecteuler.FileUtil;
-import com.gpaduana.kmeans.domain.Point;
-import com.gpaduana.kmeans.domain.Point.Type;
-import com.gpaduana.kmeans.util.CalculationUtil;
+import com.gp.projecteuler.CommonMath;
+import com.gp.projecteuler.*;
+import com.gp.projecteuler.Point.Type;
+
 
 public class Problem102 {
 
@@ -30,8 +30,8 @@ public class Problem102 {
 			points.add(c);
 			points.add(origin);
 			
-			List<List<Point>> edges = CalculationUtil.findEdges(
-					points, CalculationUtil.findCentroid(points), Type.DIMEN);
+			List<List<Point>> edges = CommonMath.findEdges(
+					points, CommonMath.findCentroid(points), Type.DIMEN);
 
 			boolean originInside = true;
 			for(List<Point> edge : edges){

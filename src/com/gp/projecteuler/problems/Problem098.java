@@ -10,8 +10,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.garypaduana.wordsolverws.domain.Trie;
-import com.garypaduana.wordsolverws.util.FileUtil;
+import com.gp.projecteuler.Trie;
+import com.gp.projecteuler.FileUtil;
 
 public class Problem098 {
 	private Trie trie = new Trie();
