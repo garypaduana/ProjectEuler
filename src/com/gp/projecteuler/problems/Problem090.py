@@ -18,10 +18,7 @@
 import itertools
 import datetime
 
-def main():
-    """ Problem located at https://projecteuler.net/problem=90
-    """
-    
+def main():   
     start = datetime.datetime.now()
     select_from_set = set()
     for i in range(0, 10):

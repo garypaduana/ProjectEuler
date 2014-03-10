@@ -15,9 +15,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import string
-import math
+import datetime
 from decimal import *
+import math
+import string
 
 phi = (Decimal(1) + Decimal.sqrt(Decimal(5))) / Decimal(2)
 fibs = ['1','1']
@@ -48,15 +49,16 @@ def fibLastDigits(fibs, numDigits):
     return x
     
 def main():
+    start = datetime.datetime.now()
     conditionMet = False
     count = 2
     while(not conditionMet):
         count += 1
         if(isPandigital(fibLastDigits(fibs, 9))):
             if(isPandigital(fibFirstDigits(count, 9))):
-                print "Answer: " + str(count)
                 conditionMet = True
-        
+                print "Answer:", str(count)
+                print "Duration:", (datetime.datetime.now() - start)
         
 if __name__ == '__main__':
     main()

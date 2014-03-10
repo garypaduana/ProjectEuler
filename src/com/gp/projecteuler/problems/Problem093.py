@@ -40,7 +40,7 @@ def main():
         the numbers 1 to 28 can be obtained before encountering the first
         non-expressible number.
 
-        Find the set of four distinct digits, a  b < c  d, for which the
+        Find the set of four distinct digits, a < b < c < d, for which the
         longest set of consecutive positive integers, 1 to n, can be obtained,
         giving your answer as a string: abcd.
     """
@@ -101,7 +101,7 @@ def main():
 
     m = max(consecutive_set_results.iterkeys())
     s = consecutive_set_results[m]
-    print "Answer:", s, "consecutive integer outcomes:", m
+    print "Answer:", ''.join([str(x) for x in s])
     print "Duration:", (datetime.datetime.now() - start)
       
 if __name__ == "__main__":

@@ -50,12 +50,12 @@ def main():
     y_table[4] = (46816,46817,46817,140450)
 
     case = 5
-    while(x_table[len(x_table)][3] < 1000000000):
+    while(x_table[len(x_table)][3] < 1e9):
         x_table[case] = find_case(case, x_table, "x_table")
         case += 1
 
     case = 5
-    while(y_table[len(y_table)][3] < 1000000000):
+    while(y_table[len(y_table)][3] < 1e9):
         y_table[case] = find_case(case, y_table, "y_table")
         case += 1
 
@@ -83,7 +83,6 @@ def ranger(lower, upper):
     while num < (upper - 1):
         num += 1
         yield num
-    
     
 if __name__ == "__main__":
     main()

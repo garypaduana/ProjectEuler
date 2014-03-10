@@ -15,6 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+import datetime
+
 def generatingFunction(n):
     return 1 - n + n**2 - n**3 + n**4 - n**5 + n**6 - n**7 + n**8 - n**9 + n**10
 
@@ -37,10 +39,13 @@ def OP(k, n, generatingFunction):
     return sum    
            
 def main():
+    start = datetime.datetime.now()
     sum = 0
     for x in range(1, 11):
         sum += OP(x, x+1, generatingFunction)
-    print 'Answer: ' + str(sum)
+        
+    print "Answer:", str(sum)
+    print "Duration:", (datetime.datetime.now() - start)
 
 if __name__ == "__main__":
     main()

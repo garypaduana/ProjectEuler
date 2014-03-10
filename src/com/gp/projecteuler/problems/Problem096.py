@@ -16,7 +16,7 @@
 '''
 
 def main():
-    ' INCOMPLETE!!!
+    # INCOMPLETE!!!
     
     board = []
     board.append(map(int, "003020600"))
@@ -35,7 +35,6 @@ def check(board):
     for x in range(0, 3):
         for y in range(0, 3):
             tot += board[x][y]
-    if board[
 
 if __name__ == "__main__":
     main()

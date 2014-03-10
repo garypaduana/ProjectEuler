@@ -15,22 +15,29 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
+import datetime
 import math
 
-f = open('../../../../../resources/base_exp.txt', 'r')
+def main():
+    start = datetime.datetime.now()
+    f = open('../../../../../resources/base_exp.txt', 'r')
+    
+    max = 0
+    max_index = 0
+    index = 1
+    for line in f:
+        if len(line) == 0:
+            continue
+        pieces = line.split(',')
+        val = math.log10(float(pieces[0])) * float(pieces[1])
+        if(val > max):
+            max = val
+            max_index = index
+        index += 1
+    
+    print "Answer:",  max_index
+    print "Duration:", (datetime.datetime.now() - start)
 
-max = 0
-max_index = 0
-index = 1
-for line in f:
-    if len(line) == 0:
-        continue
-    pieces = line.split(',')
-    val = math.log10(float(pieces[0])) * float(pieces[1])
-    if(val > max):
-        max = val
-        max_index = index
-    index += 1
-
-print max, '--- Answer:', max_index
+if __name__ == "__main__":
+    main()
         

@@ -15,8 +15,9 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import math
+import datetime
 from decimal import *
+import math
 
 def ran(start, end):
     start -= 1
@@ -24,9 +25,15 @@ def ran(start, end):
         start += 1
         yield start
 
-for n in ran(1070379110497, 1070379110498):
-    d = (Decimal('0.5')*Decimal(n)*Decimal(n) - Decimal('0.5') * Decimal(n) + Decimal('0.25')).sqrt() + Decimal('0.5')
-    
-    #b = math.sqrt(0.5*n**2-0.5*n + 0.25) + 0.5
-    if(d == d // Decimal('1.0')):
-        print n, '---  Answer:', d
+def main():
+    start = datetime.datetime.now()
+    for n in ran(1070379110497, 1070379110498):
+        d = (Decimal('0.5')*Decimal(n)*Decimal(n) - Decimal('0.5') * Decimal(n) + Decimal('0.25')).sqrt() + Decimal('0.5')
+        
+        #b = math.sqrt(0.5*n**2-0.5*n + 0.25) + 0.5
+        if(d == d // Decimal('1.0')):
+            print "Answer:", str(d)
+            print "Duration:", (datetime.datetime.now() - start)
+            
+if __name__ == "__main__":
+    main()

@@ -17,7 +17,6 @@
 
 import datetime
 
-# Main method, indeed
 def main():
     start = datetime.datetime.now()
 

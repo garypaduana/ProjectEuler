@@ -15,12 +15,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import sys
-import itertools
-sys.path.append('../')
 import CommonPy
+import datetime
+import sys
+
+sys.path.append('../')
  
 def main():
+    start = datetime.datetime.now()
     nMap = {1:[1],
             2:[1,2],
             3:[2,3,4],
@@ -36,6 +38,7 @@ def main():
             if(CommonPy.S(x) < lowest):
                 print "Tuple: " + str(x)
                 print "Answer: " + ''.join([str(y) for y in x])
+                print "Duration:", (datetime.datetime.now() - start)
                 lowest = CommonPy.S(x)
   
 if __name__ == "__main__":
