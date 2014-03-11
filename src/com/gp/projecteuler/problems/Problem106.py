@@ -1,6 +1,6 @@
 '''
     Project Euler Solutions
-    Copyright (C) 2012-2013, Gary Paduana, gary.paduana@gmail.com
+    Copyright (C) 2012-2014, Gary Paduana, gary.paduana@gmail.com
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
@@ -36,12 +36,17 @@ class Pair:
 def main():
     start = datetime.datetime.now()    
     x = [1,2,3,4,5,6,7,8,9,10,11,12]
-    checkNeededCount = countFirstRuleViolations(x)
+    checkNeededCount = checkFirstRuleCount(x)
     print "Answer:", str(checkNeededCount)
     print "Duration:", (datetime.datetime.now() - start)
 
-def countFirstRuleViolations(a):
-    violationCount = 0
+def checkFirstRuleCount(a):
+    '''
+        returns the count of how many times rule 1 *needs* to be checked
+        for a given set of n strictly increasing numbers, assuming rule 2
+        has already been satisfied.  See the problem for details.
+    '''
+    checkCount = 0
     pairs = set()
     for i in range(1, len(a) + 1):
         for b in itertools.combinations(a, i):
@@ -49,23 +54,29 @@ def countFirstRuleViolations(a):
             for c in cn:
                 pairs.add(Pair(b, c))
     print 'total pairs:', len(pairs)
-    for pair in pairs:
+    for pair in pairs:      
         # Conditions for which an equality check is not required:
         if(len(pair.b) != len(pair.c)):
             continue
         if(len(pair.b) == 1 or len(pair.c) == 1):
             continue
-        if(elementCompare(pair.b, pair.c)):
+        if(areAllLower(pair.b, pair.c)):
             continue
-        violationCount += 1           
-    return violationCount
+        checkCount += 1           
+    return checkCount
 
-def elementCompare(b, c):
+def areAllLower(b, c):
+    '''
+        returns true if all elements of 'b' are less than all
+        elements of 'c' when sorted and compared using equal indexes.
+    '''
+    bs = sorted(b)
+    cs = sorted(c)
     bLowerCount = 0
     for i in range(0, len(b)):
-        if(b[i] < c[i]):
+        if(bs[i] < cs[i]):
             bLowerCount += 1
-    return bLowerCount == len(b)
+    return bLowerCount == len(bs)
 
 if __name__ == '__main__':
     main()
