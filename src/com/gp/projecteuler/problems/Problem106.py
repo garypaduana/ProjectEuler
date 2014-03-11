@@ -18,38 +18,54 @@
 import CommonPy
 import datetime
 import itertools
-import re
 import sys
 sys.path.append('../')
 
+class Pair:    
+    def __init__(self, b, c):
+        self.b = b
+        self.c = c
+    def __str__(self):
+        return str(self.__dict__)
+    def __eq__(self, other): 
+        return (self.b == other.b and self.c == other.c) or \
+               (self.b == other.c and self.c == other.b)
+    def __hash__(self):
+        return hash(self.b) ^ hash(self.c)   
+    
 def main():
     start = datetime.datetime.now()    
-    lowest = 999999
-    x = [3,5,6,7]
-    if(areRulesTrue(x)):
-        if(CommonPy.S(x) < lowest):
-            print x
-            lowest = CommonPy.S(x)
-    
-    print "Answer:", 'NOT YET SOLVED'
+    x = [1,2,3,4,5,6,7,8,9,10,11,12]
+    checkNeededCount = countFirstRuleViolations(x)
+    print "Answer:", str(checkNeededCount)
     print "Duration:", (datetime.datetime.now() - start)
 
-def areRulesTrue(a):
-    everLasting = True
+def countFirstRuleViolations(a):
+    violationCount = 0
+    pairs = set()
     for i in range(1, len(a) + 1):
         for b in itertools.combinations(a, i):
             cn = CommonPy.difference(a, b)
-
-            print b, [x for x in cn]
             for c in cn:
-                sb = CommonPy.S(b)
-                sc = CommonPy.S(c)
-                if(sb == sc):
-                    everLasting = False
-                #if(len(b) > len(c)):
-                #    if(sb <= sc):
-                #       everLasting = False
-    return everLasting
+                pairs.add(Pair(b, c))
+    print 'total pairs:', len(pairs)
+    for pair in pairs:
+        # Conditions for which an equality check is not required:
+        if(len(pair.b) != len(pair.c)):
+            continue
+        if(len(pair.b) == 1 or len(pair.c) == 1):
+            continue
+        if(elementCompare(pair.b, pair.c)):
+            continue
+        violationCount += 1           
+    return violationCount
+
+def elementCompare(b, c):
+    bLowerCount = 0
+    for i in range(0, len(b)):
+        if(b[i] < c[i]):
+            bLowerCount += 1
+    return bLowerCount == len(b)
 
 if __name__ == '__main__':
     main()

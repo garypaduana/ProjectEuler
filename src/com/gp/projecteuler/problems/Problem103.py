@@ -33,13 +33,17 @@ def main():
     pp = CommonPy.nextPattern(nMap[6])
     
     lowest = 999999
+    lowTuple = ()
     for x in CommonPy.fuzz(pp, 1):
         if(CommonPy.areRulesTrue(x)):
-            if(CommonPy.S(x) < lowest):
+            thisLow = CommonPy.S(x)
+            if(thisLow < lowest):
                 print "Tuple: " + str(x)
-                print "Answer: " + ''.join([str(y) for y in x])
-                print "Duration:", (datetime.datetime.now() - start)
-                lowest = CommonPy.S(x)
+                lowTuple = x
+                lowest = thisLow
+    
+    print "Answer: " + ''.join([str(y) for y in lowTuple])
+    print "Duration:", (datetime.datetime.now() - start)
   
 if __name__ == "__main__":
     main()
