@@ -1,5 +1,23 @@
+'''
+    Project Euler Solutions
+    Copyright (C) 2012-2014, Gary Paduana, gary.paduana@gmail.com
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+'''
+
 import itertools
-    
+import math
+
 def fuzz(num, ran):
     '''
         num is a list of numbers
@@ -50,6 +68,9 @@ def S(x):
     return sum
            
 def areDisjointed(a, b):
+    '''
+        Determines if a and b are disjointed sets of elements
+    '''
     s = set()
     [s.add(ax) for ax in a]
     [s.add(bx) for bx in b]
@@ -79,4 +100,48 @@ def areRulesTrue(a):
                 if(len(b) > len(c)):
                     if(sb <= sc):
                         return False
+    return True
+
+# Sieve of Eratosthenes
+# Code by David Eppstein, UC Irvine, 28 Feb 2002
+# http://code.activestate.com/recipes/117119/
+
+def gen_primes():
+    """ Generate an infinite sequence of prime numbers.
+    """
+    # Maps composites to primes witnessing their compositeness.
+    # This is memory efficient, as the sieve is not "run forward"
+    # indefinitely, but only as long as required by the current
+    # number being tested.
+    #
+    D = {}  
+
+    # The running integer that's checked for primeness
+    q = 2  
+
+    while True:
+        if q not in D:
+            # q is a new prime.
+            # Yield it and mark its first multiple that isn't
+            # already marked in previous iterations
+            # 
+            yield q        
+            D[q * q] = [q]
+        else:
+            # q is composite. D[q] is the list of primes that
+            # divide it. Since we've reached q, we no longer
+            # need it in the map, but we'll mark the next 
+            # multiples of its witnesses to prepare for larger
+            # numbers
+            # 
+            for p in D[q]:
+                D.setdefault(p + q, []).append(p)
+            del D[q]
+
+        q += 1
+        
+def isPrime(num):
+    for i in range(2, int(math.sqrt(num))):
+        if num % i == 0:
+            return False
     return True
