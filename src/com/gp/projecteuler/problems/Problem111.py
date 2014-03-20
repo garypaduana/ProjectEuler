@@ -15,10 +15,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import CommonPy
 import datetime
 import sys
 sys.path.append('../')
+import CommonPy
 
 def main():
     start = datetime.datetime.now()

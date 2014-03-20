@@ -16,6 +16,9 @@
 '''
 
 import datetime
+import sys
+sys.path.append('../')
+import CommonPy
 
 def main():
     start = datetime.datetime.now()
