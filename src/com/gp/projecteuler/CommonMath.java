@@ -76,7 +76,7 @@ public class CommonMath {
 				factorList.add(n / i);
 			}
 		}
-		Collections.sort(factorList);
+		
 		return factorList;
 	}
 			
@@ -87,7 +87,7 @@ public class CommonMath {
 	 * @return
 	 */
 	public static List<Long> findProperDivisors(long n){
-		List<Long> result = new ArrayList<Long>(new TreeSet<Long>(findFactors(n)));
+		List<Long> result = new ArrayList<Long>(new HashSet<Long>(findFactors(n)));
 		result.remove(n);
 		return result;
 	}
@@ -207,12 +207,21 @@ public class CommonMath {
 	 * @param abundantIntegers
 	 * @return
 	 */
-	public static Set<Long> findSumsOfAbundantNumbers(List<Integer> abundantIntegers){
-		Set<Long> sumsOfAbundantNumbers = new TreeSet<Long>();
+	public static Set<Integer> findSumsOfAbundantNumbers(List<Integer> abundantIntegers){
+		Set<Integer> sumsOfAbundantNumbers = new HashSet<Integer>();
+		// This should already be sorted, but just to be sure.
+		Collections.sort(abundantIntegers);
 		
+		outer:
 		for(int abundantInteger : abundantIntegers){
+			if(abundantInteger > 28132){
+				return sumsOfAbundantNumbers;
+			}
 			for(int pair : abundantIntegers){
-				sumsOfAbundantNumbers.add((long) abundantInteger + pair);
+				if(abundantInteger + pair > 28123){
+					continue outer;
+				}
+				sumsOfAbundantNumbers.add(abundantInteger + pair);
 			}
 		}
 		

@@ -19,6 +19,7 @@ package com.gp.projecteuler.problems;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.gp.projecteuler.CommonMath;
 
@@ -44,16 +45,24 @@ import com.gp.projecteuler.CommonMath;
 public class Problem023 {
 
 	public static void main(String[] args) {
+		for(int i = 0; i < 100; i++){
+			doTheThing();
+		}
+	}
+	
+	public static void doTheThing(){
+		long start = System.nanoTime();
 		List<Integer> abundantIntegers = CommonMath.findAbundantIntegers(28123);
-		Set<Long> sumsOfAbundantIntegers = CommonMath.findSumsOfAbundantNumbers(abundantIntegers);
+		
+		Set<Integer> sumsOfAbundantIntegers = CommonMath.findSumsOfAbundantNumbers(abundantIntegers);
 		
 		long sum = 0;
 		for(int i = 0; i <= 28123; i++){
-			if(!sumsOfAbundantIntegers.contains((long)i)){
+			if(!sumsOfAbundantIntegers.contains(i)){
 				sum += i;
 			}
 		}
 		
-		System.out.println("Answer: " + sum);
+		System.out.println("Answer: " + sum + ", Duration: " + (System.nanoTime() - start) / 1e9);
 	}
 }

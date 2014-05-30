@@ -66,8 +66,9 @@ public class Problem086 {
 
 						if(shortestIntegerPaths.containsKey(uc)){
 							if(distance < shortestIntegerPaths.get(uc)){
-								System.out.println("removed: " + shortestIntegerPaths.remove(uc) + 
-									", " + shortestIntegerPaths.size());
+								double removed = shortestIntegerPaths.remove(uc);
+//								System.out.println("removed: " + removed + 
+//									", " + shortestIntegerPaths.size());
 							}
 						}
 						

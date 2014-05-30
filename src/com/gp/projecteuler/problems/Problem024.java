@@ -36,9 +36,10 @@ import com.gp.projecteuler.CommonMath;
 public class Problem024 {
 
 	public static void main(String[] args) {
-			
+		
+		long start = System.nanoTime();
 		List<String> permutationList = CommonMath.permutation("0123456789");
-		Collections.sort(permutationList);
 		System.out.println("Answer: " + permutationList.get(999999));
+		System.out.println("Duration: " + (System.nanoTime() - start) / 1e9 + "s");
 	}
 }

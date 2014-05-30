@@ -46,6 +46,14 @@ import java.util.List;
 public class Problem025 {
 
 	public static void main(String[] args) {
+		for(int i = 0; i < 100; i++){
+			solveIt();
+		}
+	}
+	
+	public static void solveIt(){
+		long start = System.nanoTime();
+		
 		List<BigInteger> fibList = new ArrayList<BigInteger>();
 		
 		fibList.add(BigInteger.valueOf(1));
@@ -68,5 +76,7 @@ public class Problem025 {
 			
 			i++;
 		}
+		
+		System.out.println("Duration: " + (System.nanoTime() - start) / 1e9 + "s");
 	}
 }
