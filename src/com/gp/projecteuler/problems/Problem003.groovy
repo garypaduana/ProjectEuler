@@ -28,3 +28,8 @@ boolean isPrime(long num){
     primes.add(num)
     return true
 }
+
+
+// output:
+// Answer: 6857, time: 3.123829ms
+
