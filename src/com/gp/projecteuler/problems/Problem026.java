@@ -46,6 +46,7 @@ import com.gp.projecteuler.CommonMath;
 public class Problem026 {
 
 	public static void main(String[] args) {
+		long start = System.nanoTime();
 		List<String> numList = new ArrayList<String>();
 		BigDecimal one = new BigDecimal("1.0");
 		for(BigDecimal bd = new BigDecimal("2.0"); bd.compareTo(new BigDecimal("1000.0")) < 0; bd = bd.add(new BigDecimal("1.0"))){
@@ -74,5 +75,6 @@ public class Problem026 {
 			}
 		}
 		System.out.println("Answer, Number (d): " + number + ", Number of repeating digits: " + maxSegment + ", The digits: " + maxString);
+		System.out.println("Duration: " + (System.nanoTime() - start) / 1e6 + "ms");
 	}	
 }
