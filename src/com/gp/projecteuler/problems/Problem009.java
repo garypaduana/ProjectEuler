@@ -27,20 +27,18 @@ package com.gp.projecteuler.problems;
 public class Problem009 {
 
 	public static void main(String[] args) {
-		
+		long start = System.nanoTime();
 		outer:
 		for(int a = 1; a < 1000; a++){
 			for(int b = 1; b < 1000; b++){
-				int c = (int)Math.sqrt(a * a + b * b);
+				int c = 1000 - a - b;
 				if((c * c) != (a * a + b * b)){
 					continue;
 				}
 				
-				if((a + b + c) == 1000){
-					System.out.println("a: " + a + ", b: " + b + ", c: " + c + ", product: " + (a * b * c));
-					System.out.println("Answer: " + (a * b * c));
-					break outer;
-				}
+				System.out.println("a: " + a + ", b: " + b + ", c: " + c + ", product: " + (a * b * c));
+				System.out.println("Answer: " + (a * b * c) + ", " + (System.nanoTime() - start) / 1e6 + "ms");
+				break outer;
 			}
 		}
 	}

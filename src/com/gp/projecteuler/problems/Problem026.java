@@ -58,7 +58,6 @@ public class Problem026 {
 		int number = 0;
 		numLoop:
 		for(String s : numList){
-			s.substring(0, s.length() - 1);			
 			for(int pos = 0; pos < s.length(); pos++){
 				for(int segmentLength = 1; segmentLength < s.length() / 2; segmentLength++){
 					if(segmentLength + pos <= s.length()){
