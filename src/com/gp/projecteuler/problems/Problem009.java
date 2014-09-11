@@ -36,8 +36,9 @@ public class Problem009 {
 					continue;
 				}
 				
+				long end = System.nanoTime();
 				System.out.println("a: " + a + ", b: " + b + ", c: " + c + ", product: " + (a * b * c));
-				System.out.println("Answer: " + (a * b * c) + ", " + (System.nanoTime() - start) / 1e6 + "ms");
+				System.out.println("Answer: " + (a * b * c) + ", " + (end - start) / 1e6 + "ms");
 				break outer;
 			}
 		}

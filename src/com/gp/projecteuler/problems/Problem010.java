@@ -36,6 +36,7 @@ public class Problem010 {
 		
 		for(long prime : primes){
 			sum += prime;
+			
 		}
 		
 		System.out.println("Answer: " + sum);

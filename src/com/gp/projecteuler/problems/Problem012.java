@@ -39,7 +39,7 @@ import com.gp.projecteuler.CommonMath;
 public class Problem012 {
 
 	public static void main(String[] args) {
-		
+		long start = System.nanoTime();
 		long num = 1;
 		int divisorCount = 0;
 		
@@ -52,6 +52,8 @@ public class Problem012 {
 			}
 			num++;
 		}
+		long end = System.nanoTime();
 		System.out.println("Answer: " + CommonMath.findTriangleNumberAtPosition(num));
+		System.out.println("duration: " + ((end - start) / 1e6)+ "ms");
 	}
 }
