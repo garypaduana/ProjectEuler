@@ -33,6 +33,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.*;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -59,7 +60,7 @@ public class CommonMath {
 			pentagonalCache.add(pentagonal(-i));
 		}
 	}
-	
+		
 	/**
 	 * For any long n, returns a List of all factors including 1 and n.
 	 * 
@@ -67,17 +68,15 @@ public class CommonMath {
 	 * @return
 	 */
 	public static List<Long> findFactors(long n){
-		long upper = (long)Math.sqrt(n);
-		List<Long> factorList = new ArrayList<Long>();
-		
-		for(long i = 1; i <= upper; i++){
-			if(n % i == 0){
-				factorList.add(i);
-				factorList.add(n / i);
-			}
-		}
-		
-		return factorList;
+		List<Long> factors = new ArrayList<>();
+		IntStream.iterate(1, i -> i + 1)
+				 .limit((long) Math.sqrt(n) + 1)
+				 .filter(i -> n % i == 0)
+				 .forEach(i -> { 
+					 factors.add((long) i);
+					 factors.add(n / i);
+				 });
+		return factors;
 	}
 			
 	/**
@@ -138,6 +137,18 @@ public class CommonMath {
 			}
 		}
 		return true;
+	}
+	
+	/**
+	 * Brute force check to determine if a number is prime
+	 * using java 8 streams.
+	 * 
+	 * @param n
+	 * @return
+	 */
+	public static boolean isPrime8(long n) {
+	    return n > 1 && LongStream.rangeClosed(2, (long) Math.sqrt(n))
+	    						  .noneMatch(divisor -> n % divisor == 0);
 	}
 	
 	/**

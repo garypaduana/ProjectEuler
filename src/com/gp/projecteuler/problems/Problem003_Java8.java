@@ -11,11 +11,14 @@ import com.gp.projecteuler.CommonMath;
 public class Problem003_Java8 {
 
 	public static void main(String[] args) {
+		long start = System.nanoTime();
 		long num = 600851475143L;
 		List<Long> factorList = CommonMath.findFactors(num);
 		System.out.println(factorList.stream()
-				  					 .filter(f -> CommonMath.isPrime(f))
+				  					 .filter(f -> CommonMath.isPrime8(f))
 				  					 .sorted(((a, b) -> b.compareTo(a)))
 				  					 .findFirst().get());
+		double duration = (System.nanoTime() - start) / 1e9;
+		System.out.println("Duration: " + duration + " seconds");
 	}
 }
